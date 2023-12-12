@@ -9,16 +9,16 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/students")
-public class StudentController {
-    private final StudentService studentService;
+public class PlayerController {
+    private final PlayerService playerService;
 
     @Autowired
-    public StudentController(StudentService studentService) {
-        this.studentService = studentService;
+    public PlayerController(PlayerService playerService) {
+        this.playerService = playerService;
     }
 
     @GetMapping
-    public List<Student> getStudents() {
-        return studentService.getStudents();
+    public List<Player> getPlayers() {
+        return playerService.getPlayers();
     }
 }
