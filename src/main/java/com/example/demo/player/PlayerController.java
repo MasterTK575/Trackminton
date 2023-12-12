@@ -1,14 +1,12 @@
 package com.example.demo.player;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "api/v1/players")
+@RequestMapping(path = "api/players")
 public class PlayerController {
     private final PlayerService playerService;
 
@@ -20,5 +18,10 @@ public class PlayerController {
     @GetMapping
     public List<Player> getPlayers() {
         return playerService.getPlayers();
+    }
+
+    @PostMapping
+    public void registerNewPlayer(@RequestBody Player player) {
+        playerService.addNewPlayer(player);
     }
 }

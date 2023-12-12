@@ -66,6 +66,6 @@ public class Player {
     // toString
     @Override
     public String toString() {
-        return String.format("Player{id=%d, name=%s %s}",id,firstName,lastName);
+        return String.format("Player{id=%d, name=%s %s, username: %s}",id,firstName,lastName,userName);
     }
 }
