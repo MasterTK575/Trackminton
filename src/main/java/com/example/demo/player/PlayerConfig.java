@@ -11,9 +11,9 @@ public class PlayerConfig {
     @Bean
     CommandLineRunner commandLineRunner(PlayerRepository repository) {
         return args -> {
-            Player mariam = new Player("Mariam","Kramer");
-            Player tim = new Player("Tim","Krambeck");
-            Player nicolas = new Player("Nicolas","Wenzel");
+            Player mariam = new Player("Mariam","Kramer","MK");
+            Player tim = new Player("Tim","Krambeck","TK");
+            Player nicolas = new Player("Nicolas","Wenzel","NW");
 
             repository.saveAll(List.of(mariam,tim,nicolas));
         };
