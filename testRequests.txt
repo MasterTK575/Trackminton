@@ -1,0 +1,25 @@
+GET http://localhost:8080/api/players
+
+###
+POST http://localhost:8080/api/players
+Content-Type: application/json
+
+{"firstName": "Henry",
+ "lastName": "Smith",
+  "userName": "HS"
+}
+
+
+###
+DELETE http://localhost:8080/api/players/1
+Content-Type: application/json
+
+
+###
+PUT http://localhost:8080/api/players/2?firstName=Timothy
+Content-Type: application/json
+
+###
+PUT http://localhost:8080/api/players/2?userName=MasterTK
+Content-Type: application/json
+

@@ -29,4 +29,12 @@ public class PlayerController {
     public void deletePlayer(@PathVariable("playerId") Long playerId) {
         playerService.deletePlayer(playerId);
     }
+
+    @PutMapping(path = "{playerId}")
+    public void updatePlayer(@PathVariable("playerId") Long playerId,
+                             @RequestParam(required = false) String firstName,
+                             @RequestParam(required = false) String lastName,
+                             @RequestParam(required = false) String userName){
+        playerService.updatePlayer(playerId,firstName,lastName,userName);
+    }
 }
