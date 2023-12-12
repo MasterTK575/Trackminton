@@ -1,8 +1,7 @@
-package com.example.demo.student;
+package com.example.demo.player;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
 @Entity
 @Table
 public class Player {
