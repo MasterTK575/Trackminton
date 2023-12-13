@@ -1,6 +1,8 @@
 package com.example.demo.player;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,30 +19,30 @@ public class PlayerController {
     }
 
     @GetMapping
-    public List<Player> getPlayers() {
-        return playerService.getPlayers();
+    public ResponseEntity<List<Player>> getPlayers() {
+        return new ResponseEntity<>(playerService.getPlayers(), HttpStatus.OK);
     }
 
     @GetMapping(path = "{playerId}")
-    public Player getPlayer(@PathVariable("playerId") Long playerId) {
-        return playerService.getPlayer(playerId);
+    public ResponseEntity<Player> getPlayer(@PathVariable("playerId") Long playerId) {
+        return new ResponseEntity<>(playerService.getPlayer(playerId), HttpStatus.OK);
     }
 
     @PostMapping
-    public Player registerNewPlayer(@RequestBody Player player) {
-        return playerService.addNewPlayer(player);
+    public ResponseEntity<Player> registerNewPlayer(@RequestBody Player player) {
+        return new ResponseEntity<>(playerService.addNewPlayer(player), HttpStatus.CREATED);
     }
 
     @DeleteMapping(path = "{playerId}")
-    public void deletePlayer(@PathVariable("playerId") Long playerId) {
-        playerService.deletePlayer(playerId);
+    public ResponseEntity<Player> deletePlayer(@PathVariable("playerId") Long playerId) {
+        return new ResponseEntity<>(playerService.deletePlayer(playerId),HttpStatus.OK);
     }
 
     @PutMapping(path = "{playerId}")
-    public Player updatePlayer(@PathVariable("playerId") Long playerId,
+    public ResponseEntity<Player> updatePlayer(@PathVariable("playerId") Long playerId,
                              @RequestParam(required = false) String firstName,
                              @RequestParam(required = false) String lastName,
                              @RequestParam(required = false) String userName){
-        return playerService.updatePlayer(playerId,firstName,lastName,userName);
+        return new ResponseEntity<>(playerService.updatePlayer(playerId,firstName,lastName,userName),HttpStatus.OK);
     }
 }

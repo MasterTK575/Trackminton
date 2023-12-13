@@ -36,11 +36,10 @@ public class PlayerService {
         return playerRepository.save(player);
     }
 
-    public void deletePlayer(Long playerId) {
-        if(!playerRepository.existsById(playerId)) {
-            throw new UserNotFoundException(String.format("Player with id %d doesn't exist.",playerId));
-        }
-        playerRepository.deleteById(playerId);
+    public Player deletePlayer(Long playerId) {
+        Player playerToDelete = playerRepository.findById(playerId).orElseThrow(() -> new UserNotFoundException(String.format("Player with id %d doesn't exist.",playerId)));
+        playerRepository.delete(playerToDelete);
+        return playerToDelete;
     }
 
     @Transactional
