@@ -9,7 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  public players: Player[] | undefined;
+  public players: Player[] = [];
 
   constructor(private playerService: PlayerService) {}
 
@@ -18,13 +18,13 @@ export class AppComponent implements OnInit {
   }
 
   public getPlayers(): void {
-    this.playerService.getPlayers().subscribe(
-      (response: Player[]) => {
+    this.playerService.getPlayers().subscribe({
+      next: (response: Player[]) => {
         this.players = response;
       },
-      (error: HttpErrorResponse) => {
+      error: (error: HttpErrorResponse) => {
         alert(error.message);
-      }
-    );
+      },
+    });
   }
 }

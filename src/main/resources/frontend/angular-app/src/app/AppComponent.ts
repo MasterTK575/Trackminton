@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Player } from './player';
 import { PlayerService } from './player.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -8,19 +8,23 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
-  public players: Player[] | undefined;
+export class AppComponent implements OnInit {
+  public players: Player[] = [];
 
   constructor(private playerService: PlayerService) {}
 
+  ngOnInit() {
+    this.getPlayers();
+  }
+
   public getPlayers(): void {
-    this.playerService.getPlayers().subscribe(
-      (response: Player[]) => {
+    this.playerService.getPlayers().subscribe({
+      next: (response: Player[]) => {
         this.players = response;
       },
-      (error: HttpErrorResponse) => {
+      error: (error: HttpErrorResponse) => {
         alert(error.message);
-      }
-    );
+      },
+    });
   }
 }
