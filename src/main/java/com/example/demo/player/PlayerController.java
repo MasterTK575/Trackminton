@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "api/players")
@@ -18,6 +19,11 @@ public class PlayerController {
     @GetMapping
     public List<Player> getPlayers() {
         return playerService.getPlayers();
+    }
+
+    @GetMapping(path = "{playerId}")
+    public Player getPlayer(@PathVariable("playerId") Long playerId) {
+        return playerService.getPlayer(playerId);
     }
 
     @PostMapping
