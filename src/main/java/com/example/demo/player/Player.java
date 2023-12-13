@@ -1,6 +1,10 @@
 package com.example.demo.player;
 
+import com.example.demo.team.Team;
 import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table
@@ -16,6 +20,12 @@ public class Player {
     private String firstName;
     private String lastName;
     private String userName;
+
+    @ManyToMany(mappedBy = "teamMembers")
+    private final Set<Team> teams = new HashSet<>();
+
+
+
 
     // constructors
     public Player() {
@@ -61,6 +71,10 @@ public class Player {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public Set<Team> getTeams() {
+        return teams;
     }
 
     // toString
