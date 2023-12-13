@@ -25,10 +25,10 @@ public class Game {
     private final Set<GameSet> sets = new HashSet<>();
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "team_id", referencedColumnName = "id")
+    @JoinColumn(name = "winner_id", referencedColumnName = "id")
     private Team winner;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "team_id", referencedColumnName = "id")
+    @JoinColumn(name = "first_serve_id", referencedColumnName = "id")
     private Team firstServe;
 
     public Long getId() {

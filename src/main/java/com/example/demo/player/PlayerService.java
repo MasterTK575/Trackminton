@@ -36,6 +36,7 @@ public class PlayerService {
         return playerRepository.save(player);
     }
 
+    @Transactional
     public Player deletePlayer(Long playerId) {
         Player playerToDelete = playerRepository.findById(playerId).orElseThrow(() -> new PlayerNotFoundException(String.format("Player with id %d doesn't exist.",playerId)));
         playerRepository.delete(playerToDelete);

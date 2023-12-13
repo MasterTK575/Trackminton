@@ -21,8 +21,8 @@ public class Player {
     private String lastName;
     private String userName;
 
-    @ManyToMany(mappedBy = "teamMembers")
-    private final Set<Team> teams = new HashSet<>();
+//    @ManyToMany(mappedBy = "teamMembers")
+//    private final Set<Team> teams = new HashSet<>();
 
 
 
@@ -73,9 +73,9 @@ public class Player {
         this.userName = userName;
     }
 
-    public Set<Team> getTeams() {
-        return teams;
-    }
+//    public Set<Team> getTeams() {
+//        return teams;
+//    }
 
     // toString
     @Override

@@ -14,13 +14,13 @@ public class Team {
 
     private String name;
 
-    @ManyToMany
-    @JoinTable(
-            name = "team_players",
-            joinColumns = @JoinColumn(name = "team_id"),
-            inverseJoinColumns = @JoinColumn(name = "player_id")
-    )
-    private final Set<Player> teamMembers = new HashSet<>();
+//    @ManyToMany
+//    @JoinTable(
+//            name = "team_players",
+//            joinColumns = @JoinColumn(name = "team_id"),
+//            inverseJoinColumns = @JoinColumn(name = "player_id")
+//    )
+//    private Set<Player> teamMembers = new HashSet<>();
 
     @ManyToMany(mappedBy = "teams")
     private final Set<Game> gamesPlayed = new HashSet<>();
@@ -47,7 +47,7 @@ public class Team {
         this.name = name;
     }
 
-    public Set<Player> getTeamMembers() {
-        return teamMembers;
-    }
+//    public Set<Player> getTeamMembers() {
+//        return teamMembers;
+//    }
 }
