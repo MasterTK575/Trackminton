@@ -23,7 +23,7 @@ public class PlayerService {
 
     public Player getPlayer(Long playerId) {
         return playerRepository.findById(playerId)
-                .orElseThrow(() -> new UserNotFoundException(
+                .orElseThrow(() -> new PlayerNotFoundException(
                         String.format("Player with id %d doesn't exist.",playerId)));
     }
 
@@ -37,7 +37,7 @@ public class PlayerService {
     }
 
     public Player deletePlayer(Long playerId) {
-        Player playerToDelete = playerRepository.findById(playerId).orElseThrow(() -> new UserNotFoundException(String.format("Player with id %d doesn't exist.",playerId)));
+        Player playerToDelete = playerRepository.findById(playerId).orElseThrow(() -> new PlayerNotFoundException(String.format("Player with id %d doesn't exist.",playerId)));
         playerRepository.delete(playerToDelete);
         return playerToDelete;
     }
@@ -45,7 +45,7 @@ public class PlayerService {
     @Transactional
     public Player updatePlayer(Long playerId, String firstName, String lastName, String userName) {
         Player player = playerRepository.findById(playerId)
-                .orElseThrow(() -> new UserNotFoundException(
+                .orElseThrow(() -> new PlayerNotFoundException(
                         String.format("Player with id %d doesn't exist.",playerId)));
 
         //update first name
