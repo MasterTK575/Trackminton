@@ -27,8 +27,8 @@ public class PlayerController {
     }
 
     @PostMapping
-    public void registerNewPlayer(@RequestBody Player player) {
-        playerService.addNewPlayer(player);
+    public Player registerNewPlayer(@RequestBody Player player) {
+        return playerService.addNewPlayer(player);
     }
 
     @DeleteMapping(path = "{playerId}")
@@ -37,10 +37,10 @@ public class PlayerController {
     }
 
     @PutMapping(path = "{playerId}")
-    public void updatePlayer(@PathVariable("playerId") Long playerId,
+    public Player updatePlayer(@PathVariable("playerId") Long playerId,
                              @RequestParam(required = false) String firstName,
                              @RequestParam(required = false) String lastName,
                              @RequestParam(required = false) String userName){
-        playerService.updatePlayer(playerId,firstName,lastName,userName);
+        return playerService.updatePlayer(playerId,firstName,lastName,userName);
     }
 }

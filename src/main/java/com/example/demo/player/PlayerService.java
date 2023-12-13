@@ -27,13 +27,13 @@ public class PlayerService {
                         String.format("Player with id %d doesn't exist.",playerId)));
     }
 
-    public void addNewPlayer(Player player) {
+    public Player addNewPlayer(Player player) {
         Optional<Player> playerByUserName = playerRepository.findPlayerByUserName(player.getUserName());
         if(playerByUserName.isPresent()) { // to make sure that usernames are unique
             throw new IllegalStateException("username already taken");
         }
 
-        playerRepository.save(player);
+        return playerRepository.save(player);
     }
 
     public void deletePlayer(Long playerId) {
@@ -44,7 +44,7 @@ public class PlayerService {
     }
 
     @Transactional
-    public void updatePlayer(Long playerId, String firstName, String lastName, String userName) {
+    public Player updatePlayer(Long playerId, String firstName, String lastName, String userName) {
         Player player = playerRepository.findById(playerId)
                 .orElseThrow(() -> new UserNotFoundException(
                         String.format("Player with id %d doesn't exist.",playerId)));
@@ -70,6 +70,7 @@ public class PlayerService {
             }
             player.setUserName(userName);
         }
+        return player;
     }
 
 
