@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Player } from './player';
 import { PlayerService } from './player.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -8,14 +8,10 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   public players: Player[] | undefined;
 
   constructor(private playerService: PlayerService) {}
-
-  ngOnInit() {
-    this.getPlayers();
-  }
 
   public getPlayers(): void {
     this.playerService.getPlayers().subscribe(
