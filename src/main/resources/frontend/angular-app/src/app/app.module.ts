@@ -8,9 +8,10 @@ import { FormsModule } from '@angular/forms';
 import { PlayfieldComponent } from './playfield/playfield.component';
 import { AppRoutingModule } from './app.routes';
 import { HomeComponent } from './home/home.component';
+import { StartGameComponent } from './start-game/start-game.component';
 
 @NgModule({
-  declarations: [AppComponent, PlayfieldComponent, HomeComponent],
+  declarations: [AppComponent, PlayfieldComponent, HomeComponent, StartGameComponent],
   imports: [BrowserModule, HttpClientModule, FormsModule, AppRoutingModule],
   providers: [PlayerService],
   bootstrap: [AppComponent],

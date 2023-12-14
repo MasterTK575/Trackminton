@@ -1,0 +1,192 @@
+<router-outlet>
+  <div class="relative isolate px-6 pt-14 lg:px-8">
+    <div
+      class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+      aria-hidden="true"
+    >
+      <div
+        class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+        style="
+          clip-path: polygon(
+            74.1% 44.1%,
+            100% 61.6%,
+            97.5% 26.9%,
+            85.5% 0.1%,
+            80.7% 2%,
+            72.5% 32.5%,
+            60.2% 62.4%,
+            52.4% 68.1%,
+            47.5% 58.3%,
+            45.2% 34.5%,
+            27.5% 76.7%,
+            0.1% 64.9%,
+            17.9% 100%,
+            27.6% 76.8%,
+            76.1% 97.7%,
+            74.1% 44.1%
+          );
+        "
+      ></div>
+    </div>
+    <div class="mx-auto max-w-2xl py-10 sm:py-20 lg:py-25">
+      <div class="hidden"></div>
+      <div class="text-center">
+        <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+          Spieler festlegen
+        </h1>
+      </div>
+    </div>
+    <form class="mx-auto max-w-2xl py-10 sm:py-20 lg:py-25 text-center">
+      <div class="flex flex-wrap -mx-3 mb-12">
+        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+          <label
+            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+            for="grid-first-name"
+          >
+            Team 1
+          </label>
+          <input
+            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+            id="grid-first-name"
+            type="text"
+            placeholder="Hans"
+            required
+          />
+          <input
+            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+            id="grid-first-name"
+            type="text"
+            placeholder="Jane"
+            required
+          />
+          <p class="text-red-500 text-xs italic">Please fill out this field.</p>
+        </div>
+        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+          <label
+            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+            for="grid-first-name"
+          >
+            Team 2
+          </label>
+          <input
+            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+            id="grid-first-name"
+            type="text"
+            placeholder="Doe"
+            required
+          />
+          <input
+            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+            id="grid-first-name"
+            type="text"
+            placeholder="Peter"
+            required
+          />
+          <p class="text-red-500 text-xs italic">Please fill out this field.</p>
+        </div>
+      </div>
+
+      <h3 class="mt-10 text-lg font-medium text-gray-900 dark:text-white">
+        Start-Team auswählen und Spiel beginnen
+      </h3>
+      <ul class="grid w-full gap-6 md:grid-cols-2">
+        <li>
+          <input
+            type="radio"
+            id="hosting-small"
+            name="hosting"
+            value="hosting-small"
+            class="hidden peer"
+            required
+            routerLink="/playfield"
+          />
+          <label
+            for="hosting-small"
+            class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
+          >
+            <div class="block">
+              <div class="w-full text-lg font-semibold">Team 1</div>
+            </div>
+            <svg
+              class="w-5 h-5 ms-3 rtl:rotate-180"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 14 10"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M1 5h12m0 0L9 1m4 4L9 9"
+              />
+            </svg>
+          </label>
+        </li>
+        <li>
+          <input
+            type="radio"
+            id="hosting-big"
+            name="hosting"
+            value="hosting-big"
+            class="hidden peer"
+            routerLink="/playfield"
+          />
+          <label
+            for="hosting-big"
+            class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
+          >
+            <div class="block">
+              <div class="w-full text-lg font-semibold">Team 2</div>
+            </div>
+            <svg
+              class="w-5 h-5 ms-3 rtl:rotate-180"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 14 10"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M1 5h12m0 0L9 1m4 4L9 9"
+              />
+            </svg>
+          </label>
+        </li>
+      </ul>
+    </form>
+
+    <div
+      class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+      aria-hidden="true"
+    >
+      <div
+        class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+        style="
+          clip-path: polygon(
+            74.1% 44.1%,
+            100% 61.6%,
+            97.5% 26.9%,
+            85.5% 0.1%,
+            80.7% 2%,
+            72.5% 32.5%,
+            60.2% 62.4%,
+            52.4% 68.1%,
+            47.5% 58.3%,
+            45.2% 34.5%,
+            27.5% 76.7%,
+            0.1% 64.9%,
+            17.9% 100%,
+            27.6% 76.8%,
+            76.1% 97.7%,
+            74.1% 44.1%
+          );
+        "
+      ></div>
+    </div>
+  </div>
+</router-outlet>
