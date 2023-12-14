@@ -1,0 +1,30 @@
+<div class="center">
+  <div *ngFor="let player of players" class="card">
+    <div class="additional">
+      <div class="user-card">
+        <div class="level center">Level: Pro</div>
+        <div class="points center">393 Wins</div>
+        <img
+          src="https://bootdey.com/img/Content/avatar/avatar1.png"
+          class="img-fluid d-block mx-auto rounded-circle img-thumbnail mb-4"
+        />
+      </div>
+      <div class="more-info">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce a
+          volutpat mauris, at molestie lacus. Nam vestibulum sodales odio ut
+          pulvinar.
+        </p>
+      </div>
+    </div>
+    <div class="general">
+      <h1>{{ player.firstName }} {{ player.lastName }}</h1>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce a
+        volutpat mauris, at molestie lacus. Nam vestibulum sodales odio ut
+        pulvinar.
+      </p>
+      <span class="more">Mouse over the card for more info</span>
+    </div>
+  </div>
+</div>
