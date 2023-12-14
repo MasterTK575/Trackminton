@@ -7,9 +7,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { PlayfieldComponent } from './playfield/playfield.component';
 import { AppRoutingModule } from './app.routes';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
-  declarations: [AppComponent, PlayfieldComponent],
+  declarations: [AppComponent, PlayfieldComponent, HomeComponent],
   imports: [BrowserModule, HttpClientModule, FormsModule, AppRoutingModule],
   providers: [PlayerService],
   bootstrap: [AppComponent],
