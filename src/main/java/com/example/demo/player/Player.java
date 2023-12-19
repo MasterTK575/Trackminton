@@ -1,28 +1,30 @@
 package com.example.demo.player;
 
 import com.example.demo.team.Team;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
-@Entity
+@Entity(name = "Player")
 @Table
 public class Player {
+
     @Id
-    @SequenceGenerator(name = "player_sequence",
-            sequenceName = "player_sequence",allocationSize = 1)
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "player_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false)
     private long id;
+    @Column(name = "first_name", nullable = false)
     private String firstName;
+    @Column(name = "last_name", nullable = false)
     private String lastName;
+    @Column(name = "user_name", nullable = false, unique = true)
     private String userName;
 
-//    @ManyToMany(mappedBy = "teamMembers")
-//    private final Set<Team> teams = new HashSet<>();
+    @ManyToMany(mappedBy = "teamMembers")
+    private final List<Team> teams = new ArrayList<>();
 
 
 
@@ -30,12 +32,7 @@ public class Player {
     // constructors
     public Player() {
     }
-    public Player(long id, String firstName, String lastName, String userName) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.userName = userName;
-    }
+
     public Player(String firstName, String lastName, String userName) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -73,9 +70,14 @@ public class Player {
         this.userName = userName;
     }
 
-//    public Set<Team> getTeams() {
-//        return teams;
-//    }
+    @JsonIgnore
+    public List<Team> getTeams() {
+        return teams;
+    }
+
+    public void addTeam(Team team) {
+        this.teams.add(team);
+    }
 
     // toString
     @Override
