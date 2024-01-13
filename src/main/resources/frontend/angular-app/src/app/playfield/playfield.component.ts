@@ -1,6 +1,5 @@
 import { Component, OnInit, ɵisStandalone } from '@angular/core';
-import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-playfield',
@@ -10,7 +9,35 @@ import { ActivatedRoute } from '@angular/router';
 export class PlayfieldComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute) {}
 
-  ngOnInit(): void {}
+  team1Player1: string = '';
+  team1Player2: string = '';
+  team2Player1: string = '';
+  team2Player2: string = '';
+  startingTeam: string = '';
+
+  ngOnInit(): void {
+    const state = this.findRouteDataState(this.route);
+    console.log('Received state in playfield:', state);
+    if (state) {
+      this.team1Player1 = state.team1Player1;
+      this.team1Player2 = state.team1Player2;
+      this.team2Player1 = state.team2Player1;
+      this.team2Player2 = state.team2Player2;
+      this.startingTeam = state.startingTeam;
+    }
+  }
+
+  private findRouteDataState(route: ActivatedRoute): any {
+    let currentRoute = route;
+    while (currentRoute) {
+      const state = currentRoute.snapshot?.data?.['state'];
+      if (state) {
+        return state;
+      }
+      currentRoute = currentRoute.firstChild!;
+    }
+    return null;
+  }
 
   //
   team1Score = 0;
@@ -23,6 +50,9 @@ export class PlayfieldComponent implements OnInit {
   isBreak = false;
   lastInput = 0;
   isGameFinished = false;
+  isLeftTeamServe = true;
+
+  //TODO Seitenwechsel nach Satz, bei dritten Satz noch ein Wechsel nach 11 Punkten
 
   updateScores(): void {
     if (!this.isGameFinished) {
@@ -58,6 +88,10 @@ export class PlayfieldComponent implements OnInit {
   resetScores(): void {
     this.team1Score = 0;
     this.team2Score = 0;
+  }
+
+  toggleServe(): void {
+    this.isLeftTeamServe = !this.isLeftTeamServe;
   }
 
   team1ButtonClick(): void {

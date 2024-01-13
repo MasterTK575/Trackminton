@@ -77,6 +77,19 @@
           class="mr-40 w-8 h-8 bg-blue-500 rounded-full"
           style="transform: translateY(50%) translateX(-50%)"
         ></div>
+        <!-- Serve Indicator for Team 1 -->
+        <div
+          *ngIf="isLeftTeamServe"
+          class="absolute top-0 flex flex-col items-center"
+        >
+          <div class="w-4 h-4 bg-red-500 rounded-full"></div>
+          <p class="text-xs text-red-500">Serve</p>
+        </div>
+        <!-- Display Team 1 Player Names -->
+        <div class="absolute bottom-0 flex flex-col items-center">
+          <span class="text-xs text-blue-500">{{ team1Player1 }}</span>
+          <span class="text-xs text-blue-500">{{ team1Player2 }}</span>
+        </div>
       </div>
 
       <!-- Players for Team 2 -->
@@ -89,6 +102,19 @@
           class="ml-40 w-8 h-8 bg-green-500 rounded-full"
           style="transform: translateY(50%) translateX(50%)"
         ></div>
+        <!-- Serve Indicator for Team 2 -->
+        <div
+          *ngIf="!isLeftTeamServe"
+          class="absolute top-0 flex flex-col items-center"
+        >
+          <div class="w-4 h-4 bg-red-500 rounded-full"></div>
+          <p class="text-xs text-red-500">Serve</p>
+        </div>
+        <!-- Display Team 2 Player Names -->
+        <div class="absolute bottom-0 flex flex-col items-center">
+          <span class="text-xs text-green-500">{{ team2Player1 }}</span>
+          <span class="text-xs text-green-500">{{ team2Player2 }}</span>
+        </div>
       </div>
     </div>
 
@@ -96,13 +122,13 @@
     <div class="mt-4 flex items-center">
       <button
         (click)="team1ButtonClick()"
-        class="mr-4 px-4 py-2 bg-blue-500 text-white rounded-md focus:outline-none"
+        class="mr-2 px-4 py-2 bg-blue-500 text-white rounded-md focus:outline-none"
       >
         +
       </button>
       <button
         (click)="resetButtonClick()"
-        class="mr-4 px-4 py-2 bg-red-500 text-white rounded-md focus:outline-none"
+        class="mr-2 px-4 py-2 bg-red-500 text-white rounded-md focus:outline-none"
       >
         Reset
       </button>
@@ -113,6 +139,7 @@
         +
       </button>
     </div>
+
     <!-- Break -->
     <div
       *ngIf="isBreak"
@@ -129,34 +156,34 @@
         </button>
       </div>
     </div>
-  </div>
 
-  <div
-    class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
-    aria-hidden="true"
-  >
     <div
-      class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
-      style="
-        clip-path: polygon(
-          74.1% 44.1%,
-          100% 61.6%,
-          97.5% 26.9%,
-          85.5% 0.1%,
-          80.7% 2%,
-          72.5% 32.5%,
-          60.2% 62.4%,
-          52.4% 68.1%,
-          47.5% 58.3%,
-          45.2% 34.5%,
-          27.5% 76.7%,
-          0.1% 64.9%,
-          17.9% 100%,
-          27.6% 76.8%,
-          76.1% 97.7%,
-          74.1% 44.1%
-        );
-      "
-    ></div>
+      class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+      aria-hidden="true"
+    >
+      <div
+        class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+        style="
+          clip-path: polygon(
+            74.1% 44.1%,
+            100% 61.6%,
+            97.5% 26.9%,
+            85.5% 0.1%,
+            80.7% 2%,
+            72.5% 32.5%,
+            60.2% 62.4%,
+            52.4% 68.1%,
+            47.5% 58.3%,
+            45.2% 34.5%,
+            27.5% 76.7%,
+            0.1% 64.9%,
+            17.9% 100%,
+            27.6% 76.8%,
+            76.1% 97.7%,
+            74.1% 44.1%
+          );
+        "
+      ></div>
+    </div>
   </div>
 </div>
