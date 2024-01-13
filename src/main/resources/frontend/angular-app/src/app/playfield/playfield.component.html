@@ -1,152 +1,162 @@
-<router-outlet>
-  <div class="relative isolate px-6 pt-14 lg:px-8">
+<div class="relative isolate px-6 pt-14 lg:px-8">
+  <div
+    class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+    aria-hidden="true"
+  >
     <div
-      class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
-      aria-hidden="true"
-    >
-      <div
-        class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-        style="
-          clip-path: polygon(
-            74.1% 44.1%,
-            100% 61.6%,
-            97.5% 26.9%,
-            85.5% 0.1%,
-            80.7% 2%,
-            72.5% 32.5%,
-            60.2% 62.4%,
-            52.4% 68.1%,
-            47.5% 58.3%,
-            45.2% 34.5%,
-            27.5% 76.7%,
-            0.1% 64.9%,
-            17.9% 100%,
-            27.6% 76.8%,
-            76.1% 97.7%,
-            74.1% 44.1%
-          );
-        "
-      ></div>
-    </div>
-    <div class="flex flex-col items-center justify-center h-screen">
-      <!-- Scores and Sets Display -->
+      class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+      style="
+        clip-path: polygon(
+          74.1% 44.1%,
+          100% 61.6%,
+          97.5% 26.9%,
+          85.5% 0.1%,
+          80.7% 2%,
+          72.5% 32.5%,
+          60.2% 62.4%,
+          52.4% 68.1%,
+          47.5% 58.3%,
+          45.2% 34.5%,
+          27.5% 76.7%,
+          0.1% 64.9%,
+          17.9% 100%,
+          27.6% 76.8%,
+          76.1% 97.7%,
+          74.1% 44.1%
+        );
+      "
+    ></div>
+  </div>
+  <div class="flex flex-col items-center justify-center h-screen">
+    <!-- Scores and Sets Display -->
 
-      <div class="mb-4 flex items-center text-center">
-        <!-- Team 1 Scores -->
-        <div class="mr-8">
-          <div class="text-lg font-bold mb-2">Team 1</div>
-          <div class="flex items-center">
-            <div class="w-8 h-8 bg-blue-500 rounded-full mr-2"></div>
-            <p class="text-lg font-bold">Score: {{ team1Score }}</p>
-          </div>
-        </div>
-
-        <!-- Sets Display -->
+    <div class="mb-4 flex items-center text-center">
+      <!-- Team 1 Scores -->
+      <div class="mr-8">
+        <div class="text-lg font-bold mb-2">Team 1</div>
         <div class="flex items-center">
-          <div class="bg-gray-300 p-2 rounded-md">
-            <p class="text-sm">Sets</p>
-            <p class="text-lg font-bold">{{ team1Sets }} - {{ team2Sets }}</p>
-          </div>
-        </div>
-
-        <!-- Team 2 Scores -->
-        <div class="ml-8">
-          <div class="text-lg font-bold mb-2">Team 2</div>
-          <div class="flex items-center">
-            <div class="w-8 h-8 bg-green-500 rounded-full mr-2"></div>
-            <p class="text-lg font-bold">Score: {{ team2Score }}</p>
-          </div>
+          <div class="w-8 h-8 bg-blue-500 rounded-full mr-2"></div>
+          <p class="text-lg font-bold">Score: {{ team1Score }}</p>
         </div>
       </div>
 
-      <!-- Rectangle Playfield -->
-      <div
-        class="relative flex items-center justify-center w-11/12 h-3/5 border border-blue-700 rounded-md bg-white"
-      >
-        <!-- Line in the middle -->
-        <div
-          class="absolute top-0 left-1/2 transform -translate-x-1/2 w-px h-full bg-gray-500"
-        ></div>
-
-        <!-- Players for Team 1 -->
-        <div class="absolute left-1/4 flex flex-col items-center">
-          <div class="w-8 h-8 bg-blue-500 rounded-full mb-2"></div>
-          <div class="w-8 h-8 bg-blue-500 rounded-full"></div>
-        </div>
-
-        <!-- Players for Team 2 -->
-        <div class="absolute right-1/4 flex flex-col items-center">
-          <div class="w-8 h-8 bg-green-500 rounded-full mb-2"></div>
-          <div class="w-8 h-8 bg-green-500 rounded-full"></div>
+      <!-- Sets Display -->
+      <div class="flex items-center">
+        <div class="bg-gray-300 p-2 rounded-md">
+          <p class="text-sm">Sets</p>
+          <p class="text-lg font-bold">{{ team1Sets }} - {{ team2Sets }}</p>
         </div>
       </div>
 
-      <!-- Buttons -->
-      <div class="mt-4 flex items-center">
-        <button
-          (click)="team1ButtonClick()"
-          class="mr-4 px-4 py-2 bg-blue-500 text-white rounded-md focus:outline-none"
-        >
-          +
-        </button>
-        <button
-          (click)="resetButtonClick()"
-          class="mr-4 px-4 py-2 bg-red-500 text-white rounded-md focus:outline-none"
-        >
-          Reset
-        </button>
-        <button
-          (click)="team2ButtonClick()"
-          class="px-4 py-2 bg-green-500 text-white rounded-md focus:outline-none"
-        >
-          +
-        </button>
-      </div>
-      <!-- Break -->
-      <div
-        *ngIf="isBreak"
-        class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75"
-      >
-        <div class="bg-white p-8 rounded-md">
-          <h2 class="text-2xl font-bold mb-4">Take a Break!</h2>
-          <p class="text-lg font-bold">{{ formatTime(breakTime) }}</p>
-          <button
-            (click)="cancelBreak()"
-            class="mt-4 px-4 py-2 bg-red-500 text-white rounded-md focus:outline-none"
-          >
-            Cancel Break
-          </button>
+      <!-- Team 2 Scores -->
+      <div class="ml-8">
+        <div class="text-lg font-bold mb-2">Team 2</div>
+        <div class="flex items-center">
+          <div class="w-8 h-8 bg-green-500 rounded-full mr-2"></div>
+          <p class="text-lg font-bold">Score: {{ team2Score }}</p>
         </div>
       </div>
     </div>
 
+    <!-- Rectangle Playfield -->
     <div
-      class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
-      aria-hidden="true"
+      class="relative flex items-center justify-center w-11/12 h-3/5 border border-blue-700 rounded-md bg-white"
     >
+      <!-- Line in the middle -->
       <div
-        class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
-        style="
-          clip-path: polygon(
-            74.1% 44.1%,
-            100% 61.6%,
-            97.5% 26.9%,
-            85.5% 0.1%,
-            80.7% 2%,
-            72.5% 32.5%,
-            60.2% 62.4%,
-            52.4% 68.1%,
-            47.5% 58.3%,
-            45.2% 34.5%,
-            27.5% 76.7%,
-            0.1% 64.9%,
-            17.9% 100%,
-            27.6% 76.8%,
-            76.1% 97.7%,
-            74.1% 44.1%
-          );
-        "
+        class="absolute top-0 left-1/2 transform -translate-x-1/2 w-px h-full bg-gray-500"
       ></div>
+
+      <!-- Players for Team 1 -->
+      <div class="absolute left-1/4 flex flex-col items-center">
+        <div
+          class="mr-80 w-8 h-8 bg-blue-500 rounded-full mb-20"
+          style="transform: translateY(-50%) translateX(-50%)"
+        ></div>
+        <div
+          class="mr-40 w-8 h-8 bg-blue-500 rounded-full"
+          style="transform: translateY(50%) translateX(-50%)"
+        ></div>
+      </div>
+
+      <!-- Players for Team 2 -->
+      <div class="absolute right-1/4 flex flex-col items-center">
+        <div
+          class="ml-80 w-8 h-8 bg-green-500 rounded-full mb-20"
+          style="transform: translateY(-50%) translateX(50%)"
+        ></div>
+        <div
+          class="ml-40 w-8 h-8 bg-green-500 rounded-full"
+          style="transform: translateY(50%) translateX(50%)"
+        ></div>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="mt-4 flex items-center">
+      <button
+        (click)="team1ButtonClick()"
+        class="mr-4 px-4 py-2 bg-blue-500 text-white rounded-md focus:outline-none"
+      >
+        +
+      </button>
+      <button
+        (click)="resetButtonClick()"
+        class="mr-4 px-4 py-2 bg-red-500 text-white rounded-md focus:outline-none"
+      >
+        Reset
+      </button>
+      <button
+        (click)="team2ButtonClick()"
+        class="px-4 py-2 bg-green-500 text-white rounded-md focus:outline-none"
+      >
+        +
+      </button>
+    </div>
+    <!-- Break -->
+    <div
+      *ngIf="isBreak"
+      class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75"
+    >
+      <div class="bg-white p-8 rounded-md">
+        <h2 class="text-2xl font-bold mb-4">Take a Break!</h2>
+        <p class="text-lg font-bold">{{ formatTime(breakTime) }}</p>
+        <button
+          (click)="cancelBreak()"
+          class="mt-4 px-4 py-2 bg-red-500 text-white rounded-md focus:outline-none"
+        >
+          Cancel Break
+        </button>
+      </div>
     </div>
   </div>
-</router-outlet>
+
+  <div
+    class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+    aria-hidden="true"
+  >
+    <div
+      class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+      style="
+        clip-path: polygon(
+          74.1% 44.1%,
+          100% 61.6%,
+          97.5% 26.9%,
+          85.5% 0.1%,
+          80.7% 2%,
+          72.5% 32.5%,
+          60.2% 62.4%,
+          52.4% 68.1%,
+          47.5% 58.3%,
+          45.2% 34.5%,
+          27.5% 76.7%,
+          0.1% 64.9%,
+          17.9% 100%,
+          27.6% 76.8%,
+          76.1% 97.7%,
+          74.1% 44.1%
+        );
+      "
+    ></div>
+  </div>
+</div>

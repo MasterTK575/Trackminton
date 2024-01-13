@@ -5,6 +5,7 @@ import { AppComponent } from './AppComponent';
 import { HomeComponent } from './home/home.component';
 import { StartGameComponent } from './start-game/start-game.component';
 import { PlayerComponent } from './player/player.component';
+import { FinishScreenComponent } from './finish-screen/finish-screen.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'player', component: PlayerComponent },
   { path: 'startGame', component: StartGameComponent },
   { path: 'playfield', component: PlayfieldComponent },
+  { path: 'finish-screen', component: FinishScreenComponent },
 ];
 
 @NgModule({

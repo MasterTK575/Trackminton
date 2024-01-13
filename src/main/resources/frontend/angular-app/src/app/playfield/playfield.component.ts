@@ -1,4 +1,6 @@
 import { Component, OnInit, ɵisStandalone } from '@angular/core';
+import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-playfield',
@@ -6,7 +8,7 @@ import { Component, OnInit, ɵisStandalone } from '@angular/core';
   styleUrls: ['./playfield.component.css'],
 })
 export class PlayfieldComponent implements OnInit {
-  constructor() {}
+  constructor(private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {}
 
@@ -20,24 +22,35 @@ export class PlayfieldComponent implements OnInit {
   breakTime = 5 * 60; // 5 minutes in seconds
   isBreak = false;
   lastInput = 0;
+  isGameFinished = false;
 
   updateScores(): void {
-    if (this.team1Score >= 21 || this.team2Score >= 21) {
-      if (Math.abs(this.team1Score - this.team2Score) >= 2) {
-        // Determine the set winner
-        if (this.team1Score > this.team2Score) {
-          // Team 1 wins the set
-          this.team1Sets += 1;
-        } else {
-          // Team 2 wins the set
-          this.team2Sets += 1;
+    if (!this.isGameFinished) {
+      if (this.team1Score >= 21 || this.team2Score >= 21) {
+        if (Math.abs(this.team1Score - this.team2Score) >= 2) {
+          if (this.team1Score > this.team2Score) {
+            this.team1Sets += 1;
+          } else {
+            this.team2Sets += 1;
+          }
+
+          this.resetScores();
+
+          if (this.team1Sets === 2 || this.team2Sets === 2) {
+            console.log('Navigating to finish screen');
+            this.isGameFinished = true;
+            this.router.navigate(['/finish-screen'], {
+              queryParams: {
+                winner: this.team1Sets === 2 ? 'Team 1' : 'Team 2',
+                team1Sets: this.team1Sets,
+                team2Sets: this.team2Sets,
+              },
+            });
+            return;
+          } else {
+            this.showBreakPopup();
+          }
         }
-
-        // Reset scores for the next set
-        this.resetScores();
-
-        // Check if the game should continue or if there's a break
-        this.showBreakPopup();
       }
     }
   }

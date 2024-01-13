@@ -10,9 +10,10 @@ import { AppRoutingModule } from './app.routes';
 import { HomeComponent } from './home/home.component';
 import { StartGameComponent } from './start-game/start-game.component';
 import { PlayerComponent } from './player/player.component';
+import { FinishScreenComponent } from './finish-screen/finish-screen.component';
 
 @NgModule({
-  declarations: [AppComponent, PlayfieldComponent, HomeComponent, StartGameComponent, PlayerComponent],
+  declarations: [AppComponent, PlayfieldComponent, HomeComponent, StartGameComponent, PlayerComponent, FinishScreenComponent],
   imports: [BrowserModule, HttpClientModule, FormsModule, AppRoutingModule],
   providers: [PlayerService],
   bootstrap: [AppComponent],
