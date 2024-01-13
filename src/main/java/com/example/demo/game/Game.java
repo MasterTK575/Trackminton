@@ -2,13 +2,9 @@ package com.example.demo.game;
 
 import com.example.demo.gameset.GameSet;
 import com.example.demo.team.Team;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table
@@ -23,11 +19,11 @@ public class Game {
             joinColumns = @JoinColumn(name = "game_id"),
             inverseJoinColumns = @JoinColumn(name = "team_id")
     )
-    private final List<Team> teams = new ArrayList<>();
+    private final Set<Team> teams = new HashSet<>();
 
     //@JsonIgnore
     @OneToMany(mappedBy = "game")
-    private List<GameSet> sets = new ArrayList<>();
+    private Set<GameSet> gameSets = new HashSet<>();
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "winner_id", referencedColumnName = "id")
@@ -36,8 +32,8 @@ public class Game {
     public Game() {
     }
 
-    public Game(List<GameSet> sets, Team winner) {
-        this.sets = sets;
+    public Game(Set<GameSet> gameSets, Team winner) {
+        this.gameSets = gameSets;
         this.winner = winner;
     }
 
@@ -50,20 +46,40 @@ public class Game {
         this.id = id;
     }
 
-    public List<Team> getTeams() {
+    public Set<Team> getTeams() {
         return teams;
     }
 
+    public void setTeams(Set<Team> teams) {
+        System.out.println("setTeams gets called");
+        for(Team team : teams) {
+            this.teams.add(team);
+            team.addGamePlayed(this);
+        }
+    }
+
+    // for testing only
     public void addTeam(Team team) {
         this.teams.add(team);
         team.addGamePlayed(this);
     }
-    public List<GameSet> getSets() {
-        return sets;
+
+    public void setGameSets(Set<GameSet> gameSets) {
+        System.out.println("setGameSets gets called");
+        for(GameSet gameSet : gameSets) {
+            this.gameSets.add(gameSet);
+            gameSet.setGame(this);
+        }
     }
 
+    public Set<GameSet> getGameSets() {
+        return gameSets;
+    }
+
+
+    // only for testing
     public void addSet(GameSet set) {
-        this.sets.add(set);
+        this.gameSets.add(set);
         set.setGame(this);
     }
 
@@ -80,13 +96,12 @@ public class Game {
         team.addGameWon(this);
     }
 
-
     @Override
     public String toString() {
         return "Game{" +
                 "id=" + id +
                 ", teams=" + teams +
-                ", sets=" + sets +
+                ", sets=" + gameSets +
                 ", winner=" + winner +
                 '}';
     }
