@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DataSharingService } from '../services/dataSharingService';
 
 @Component({
   selector: 'app-start-game',
@@ -12,7 +13,10 @@ export class StartGameComponent implements OnInit {
   team2Player1: string = '';
   team2Player2: string = '';
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private dataSharingService: DataSharingService
+  ) {}
 
   ngOnInit(): void {
     // Initialization logic if needed
@@ -26,17 +30,19 @@ export class StartGameComponent implements OnInit {
       this.team2Player1 &&
       this.team2Player2
     ) {
-      // Redirect to playfield component with necessary data
-      this.router.navigate(['/playfield'], {
-        state: {
-          team1Player1: this.team1Player1,
-          team1Player2: this.team1Player2,
-          team2Player1: this.team2Player1,
-          team2Player2: this.team2Player2,
-          startingTeam: startingTeam,
-        },
-      });
-      console.log('Team 1 Player 1:', this.team1Player1);
+      const teamData = {
+        team1Player1: this.team1Player1,
+        team1Player2: this.team1Player2,
+        team2Player1: this.team2Player1,
+        team2Player2: this.team2Player2,
+        startingTeam: startingTeam,
+      };
+
+      // Update the team data using the service
+      this.dataSharingService.updateTeamData(teamData);
+
+      // Redirect to playfield component
+      this.router.navigate(['/playfield']);
     }
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit, ɵisStandalone } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DataSharingService } from '../services/dataSharingService';
 
 @Component({
   selector: 'app-playfield',
@@ -7,7 +8,11 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./playfield.component.css'],
 })
 export class PlayfieldComponent implements OnInit {
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private dataSharingService: DataSharingService
+  ) {}
 
   team1Player1: string = '';
   team1Player2: string = '';
@@ -16,27 +21,16 @@ export class PlayfieldComponent implements OnInit {
   startingTeam: string = '';
 
   ngOnInit(): void {
-    const state = this.findRouteDataState(this.route);
-    console.log('Received state in playfield:', state);
-    if (state) {
-      this.team1Player1 = state.team1Player1;
-      this.team1Player2 = state.team1Player2;
-      this.team2Player1 = state.team2Player1;
-      this.team2Player2 = state.team2Player2;
-      this.startingTeam = state.startingTeam;
-    }
-  }
-
-  private findRouteDataState(route: ActivatedRoute): any {
-    let currentRoute = route;
-    while (currentRoute) {
-      const state = currentRoute.snapshot?.data?.['state'];
-      if (state) {
-        return state;
+    // Subscribe to changes in the team data
+    this.dataSharingService.teamData$.subscribe((teamData) => {
+      if (teamData) {
+        this.team1Player1 = teamData.team1Player1;
+        this.team1Player2 = teamData.team1Player2;
+        this.team2Player1 = teamData.team2Player1;
+        this.team2Player2 = teamData.team2Player2;
+        this.startingTeam = teamData.startingTeam;
       }
-      currentRoute = currentRoute.firstChild!;
-    }
-    return null;
+    });
   }
 
   //
