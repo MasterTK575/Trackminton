@@ -4,9 +4,7 @@ import com.example.demo.team.Team;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity(name = "Player")
 @Table
@@ -20,11 +18,11 @@ public class Player {
     private String firstName;
     @Column(name = "last_name", nullable = false)
     private String lastName;
-    @Column(name = "user_name", nullable = false, unique = true)
+    @Column(name = "user_name", nullable = false)
     private String userName;
 
     @ManyToMany(mappedBy = "teamMembers")
-    private final List<Team> teams = new ArrayList<>();
+    private final Set<Team> teams = new HashSet<>();
 
 
 
@@ -71,7 +69,7 @@ public class Player {
     }
 
     @JsonIgnore
-    public List<Team> getTeams() {
+    public Set<Team> getTeams() {
         return teams;
     }
 
@@ -83,5 +81,18 @@ public class Player {
     @Override
     public String toString() {
         return String.format("Player{id=%d, name=%s %s, username: %s}",id,firstName,lastName,userName);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return Objects.equals(firstName, player.firstName) && Objects.equals(lastName, player.lastName) && Objects.equals(userName, player.userName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, userName);
     }
 }

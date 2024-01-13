@@ -29,11 +29,11 @@ public class TestDataConfig {
             playerRepository.saveAll(List.of(mariam,will,tim,nicolas));
 
             Team team1 = new Team("team1");
-            team1.addPlayer(tim);
-            team1.addPlayer(nicolas);
+            team1.addTeamMember(tim);
+            team1.addTeamMember(nicolas);
             Team team2 = new Team("team2");
-            team2.addPlayer(will);
-            team2.addPlayer(mariam);
+            team2.addTeamMember(will);
+            team2.addTeamMember(mariam);
             teamRepository.save(team1);
             teamRepository.save(team2);
             System.out.println(team1);
@@ -52,7 +52,6 @@ public class TestDataConfig {
             game.addSet(set3);
             game.addTeam(team1);
             game.addTeam(team2);
-            game.setFirstServe(team1);
             game.setWinner(team2);
             gameRepository.save(game);
             System.out.println(game);

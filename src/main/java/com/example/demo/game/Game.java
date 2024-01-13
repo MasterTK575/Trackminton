@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -31,17 +32,13 @@ public class Game {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "winner_id", referencedColumnName = "id")
     private Team winner;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "first_serve_id", referencedColumnName = "id")
-    private Team firstServe;
 
     public Game() {
     }
 
-    public Game(List<GameSet> sets, Team winner, Team firstServe) {
+    public Game(List<GameSet> sets, Team winner) {
         this.sets = sets;
         this.winner = winner;
-        this.firstServe = firstServe;
     }
 
 
@@ -74,21 +71,14 @@ public class Game {
         return winner;
     }
 
+    public boolean isWinner(Team team) {
+        return Objects.equals(team,winner);
+    }
+
     public void setWinner(Team team) {
         this.winner = team;
         team.addGameWon(this);
     }
-
-    public Team getFirstServe() {
-        return firstServe;
-    }
-
-    public void setFirstServe(Team team) {
-        this.firstServe = team;
-        team.addFirstServeGame(this);
-
-    }
-
 
 
     @Override
@@ -98,7 +88,6 @@ public class Game {
                 ", teams=" + teams +
                 ", sets=" + sets +
                 ", winner=" + winner +
-                ", firstServe=" + firstServe +
                 '}';
     }
 }
