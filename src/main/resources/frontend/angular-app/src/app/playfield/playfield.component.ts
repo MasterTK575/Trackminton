@@ -24,11 +24,16 @@ export class PlayfieldComponent implements OnInit {
     // Subscribe to changes in the team data
     this.dataSharingService.teamData$.subscribe((teamData) => {
       if (teamData) {
+        console.log('Team data received in playfield component');
         this.team1Player1 = teamData.team1Player1;
         this.team1Player2 = teamData.team1Player2;
         this.team2Player1 = teamData.team2Player1;
         this.team2Player2 = teamData.team2Player2;
         this.startingTeam = teamData.startingTeam;
+
+        // Update currentServe when data arrives
+        this.currentServe = this.startingTeam === 'Team 1' ? true : false;
+        this.lastServe = this.currentServe;
       }
     });
   }
@@ -44,7 +49,8 @@ export class PlayfieldComponent implements OnInit {
   isBreak = false;
   lastInput = 0;
   isGameFinished = false;
-  isLeftTeamServe = true;
+  currentServe = true;
+  lastServe = true;
 
   //TODO Seitenwechsel nach Satz, bei dritten Satz noch ein Wechsel nach 11 Punkten
 
@@ -84,24 +90,24 @@ export class PlayfieldComponent implements OnInit {
     this.team2Score = 0;
   }
 
-  toggleServe(): void {
-    this.isLeftTeamServe = !this.isLeftTeamServe;
-  }
-
   team1ButtonClick(): void {
     if (!this.isBreak) {
+      this.lastServe = this.currentServe;
       this.lastTeam1Score = this.team1Score;
       this.team1Score += 1;
       this.lastInput = 1;
+      this.currentServe = true;
       this.updateScores();
     }
   }
 
   team2ButtonClick(): void {
     if (!this.isBreak) {
+      this.lastServe = this.currentServe;
       this.lastTeam2Score = this.team2Score;
       this.team2Score += 1;
       this.lastInput = 2;
+      this.currentServe = false;
       this.updateScores();
     }
   }
@@ -114,6 +120,7 @@ export class PlayfieldComponent implements OnInit {
     if (this.lastInput === 2) {
       this.team2Score = this.lastTeam2Score;
     }
+    this.currentServe = this.lastServe;
   }
 
   showBreakPopup(): void {

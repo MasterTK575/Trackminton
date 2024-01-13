@@ -29,14 +29,24 @@
   </div>
   <div class="flex flex-col items-center justify-center h-screen">
     <!-- Scores and Sets Display -->
-
+    <!-- Scores and Sets Display -->
     <div class="mb-4 flex items-center text-center">
       <!-- Team 1 Scores -->
-      <div class="mr-8">
-        <div class="text-lg font-bold mb-2">Team 1</div>
-        <div class="flex items-center">
-          <div class="w-8 h-8 bg-blue-500 rounded-full mr-2"></div>
-          <p class="text-lg font-bold">Score: {{ team1Score }}</p>
+      <div class="mr-8 flex flex-col items-center">
+        <div class="text-lg font-bold mb-2">
+          Team 1: {{ team1Player1 }} / {{ team1Player2 }}
+        </div>
+        <div class="flex items-center relative">
+          <div
+            class="w-10 h-10 bg-blue-500 rounded-full border-4 relative"
+            [ngStyle]="{ 'border-color': currentServe ? 'red' : 'transparent' }"
+          >
+            <span
+              class="text-xs text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+            >
+              {{ team1Score }}
+            </span>
+          </div>
         </div>
       </div>
 
@@ -49,15 +59,26 @@
       </div>
 
       <!-- Team 2 Scores -->
-      <div class="ml-8">
-        <div class="text-lg font-bold mb-2">Team 2</div>
-        <div class="flex items-center">
-          <div class="w-8 h-8 bg-green-500 rounded-full mr-2"></div>
-          <p class="text-lg font-bold">Score: {{ team2Score }}</p>
+      <div class="ml-8 flex flex-col items-center">
+        <div class="text-lg font-bold mb-2">
+          Team 2: {{ team2Player1 }} / {{ team2Player2 }}
+        </div>
+        <div class="flex items-center relative">
+          <div
+            class="w-10 h-10 bg-green-500 rounded-full border-4"
+            [ngStyle]="{
+              'border-color': !currentServe ? 'red' : 'transparent'
+            }"
+          >
+            <span
+              class="text-xs text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+            >
+              {{ team2Score }}
+            </span>
+          </div>
         </div>
       </div>
     </div>
-
     <!-- Rectangle Playfield -->
     <div
       class="relative flex items-center justify-center w-11/12 h-3/5 border border-blue-700 rounded-md bg-white"
@@ -69,51 +90,61 @@
 
       <!-- Players for Team 1 -->
       <div class="absolute left-1/4 flex flex-col items-center">
-        <div
-          class="mr-80 w-8 h-8 bg-blue-500 rounded-full mb-20"
-          style="transform: translateY(-50%) translateX(-50%)"
-        ></div>
-        <div
-          class="mr-40 w-8 h-8 bg-blue-500 rounded-full"
-          style="transform: translateY(50%) translateX(-50%)"
-        ></div>
-        <!-- Serve Indicator for Team 1 -->
-        <div
-          *ngIf="isLeftTeamServe"
-          class="absolute top-0 flex flex-col items-center"
-        >
-          <div class="w-4 h-4 bg-red-500 rounded-full"></div>
-          <p class="text-xs text-red-500">Serve</p>
+        <div class="relative mb-4" style="margin-top: 6rem">
+          <div
+            class="w-24 h-24 bg-blue-500 rounded-full border-4 transform rotate-45 absolute left-0 bottom-0"
+            [ngStyle]="{ 'border-color': currentServe ? 'red' : 'transparent' }"
+          >
+            <span
+              class="text-xs text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+            >
+              {{ team1Player1 }}
+            </span>
+          </div>
         </div>
-        <!-- Display Team 1 Player Names -->
-        <div class="absolute bottom-0 flex flex-col items-center">
-          <span class="text-xs text-blue-500">{{ team1Player1 }}</span>
-          <span class="text-xs text-blue-500">{{ team1Player2 }}</span>
+        <div class="relative" style="margin-top: 6rem">
+          <div
+            class="w-24 h-24 bg-blue-500 rounded-full border-4 transform rotate-45 absolute right-0 top-0"
+            [ngStyle]="{ 'border-color': currentServe ? 'red' : 'transparent' }"
+          >
+            <span
+              class="text-xs text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+            >
+              {{ team1Player2 }}
+            </span>
+          </div>
         </div>
       </div>
 
       <!-- Players for Team 2 -->
       <div class="absolute right-1/4 flex flex-col items-center">
-        <div
-          class="ml-80 w-8 h-8 bg-green-500 rounded-full mb-20"
-          style="transform: translateY(-50%) translateX(50%)"
-        ></div>
-        <div
-          class="ml-40 w-8 h-8 bg-green-500 rounded-full"
-          style="transform: translateY(50%) translateX(50%)"
-        ></div>
-        <!-- Serve Indicator for Team 2 -->
-        <div
-          *ngIf="!isLeftTeamServe"
-          class="absolute top-0 flex flex-col items-center"
-        >
-          <div class="w-4 h-4 bg-red-500 rounded-full"></div>
-          <p class="text-xs text-red-500">Serve</p>
+        <div class="relative mb-4" style="margin-top: 6rem">
+          <div
+            class="w-24 h-24 bg-green-500 rounded-full border-4 transform rotate-45 absolute right-0 bottom-0"
+            [ngStyle]="{
+              'border-color': !currentServe ? 'red' : 'transparent'
+            }"
+          >
+            <span
+              class="text-xs text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+            >
+              {{ team2Player1 }}
+            </span>
+          </div>
         </div>
-        <!-- Display Team 2 Player Names -->
-        <div class="absolute bottom-0 flex flex-col items-center">
-          <span class="text-xs text-green-500">{{ team2Player1 }}</span>
-          <span class="text-xs text-green-500">{{ team2Player2 }}</span>
+        <div class="relative" style="margin-top: 6rem">
+          <div
+            class="w-24 h-24 bg-green-500 rounded-full border-4 transform rotate-45 absolute left-0 top-0"
+            [ngStyle]="{
+              'border-color': !currentServe ? 'red' : 'transparent'
+            }"
+          >
+            <span
+              class="text-xs text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+            >
+              {{ team2Player2 }}
+            </span>
+          </div>
         </div>
       </div>
     </div>
