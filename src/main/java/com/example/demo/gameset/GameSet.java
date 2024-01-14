@@ -85,11 +85,11 @@ public class GameSet {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GameSet gameSet = (GameSet) o;
-        return scoreTeam1 == gameSet.scoreTeam1 && scoreTeam2 == gameSet.scoreTeam2 && Objects.equals(id, gameSet.id) && Objects.equals(game, gameSet.game);
+        return scoreTeam1 == gameSet.scoreTeam1 && scoreTeam2 == gameSet.scoreTeam2 && Objects.equals(id, gameSet.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, scoreTeam1, scoreTeam2, game);
+        return Objects.hash(id, scoreTeam1, scoreTeam2);
     }
 }
