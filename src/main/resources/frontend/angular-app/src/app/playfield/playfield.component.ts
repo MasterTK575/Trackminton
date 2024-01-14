@@ -34,6 +34,7 @@ export class PlayfieldComponent implements OnInit {
         // Update currentServe when data arrives
         this.currentServe = this.startingTeam === 'Team 1' ? true : false;
         this.lastServe = this.currentServe;
+        this.currentServingPlayer = this.startingTeam === 'Team 1' ? 2 : 3;
       }
     });
   }
@@ -53,20 +54,29 @@ export class PlayfieldComponent implements OnInit {
   lastServe = true;
   setScores: { team1: number; team2: number }[] = [];
   mirrorLayout = false;
-
-  //TODO Seitenwechsel nach Satz, bei dritten Satz noch ein Wechsel nach 11 Punkten
+  mirrorteam1 = false;
+  mirrorteam2 = false;
+  thirdSetChange = false;
+  currentServingPlayer = 2;
 
   updateScores(): void {
     if (!this.isGameFinished) {
       if (
         this.team1Sets === 1 &&
         this.team2Sets === 1 &&
-        (this.team1Score === 11 || this.team2Score === 11)
+        ((this.team1Score === 11 && !this.thirdSetChange) ||
+          (this.team2Score === 11 && !this.thirdSetChange))
       ) {
         this.switchSides();
+        this.showBreakPopup();
+        this.thirdSetChange = true;
       }
       if (this.team1Score >= 21 || this.team2Score >= 21) {
-        if (Math.abs(this.team1Score - this.team2Score) >= 2) {
+        if (
+          Math.abs(this.team1Score - this.team2Score) >= 2 ||
+          this.team1Score === 30 ||
+          this.team2Score === 30
+        ) {
           if (this.team1Score > this.team2Score) {
             this.team1Sets += 1;
           } else {
@@ -107,6 +117,13 @@ export class PlayfieldComponent implements OnInit {
     this.mirrorLayout = !this.mirrorLayout;
   }
 
+  switchPositionsTeam1(): void {
+    this.mirrorteam1 = !this.mirrorteam1;
+  }
+  switchPositionsTeam2(): void {
+    this.mirrorteam2 = !this.mirrorteam2;
+  }
+
   resetScores(): void {
     this.team1Score = 0;
     this.team2Score = 0;
@@ -118,6 +135,19 @@ export class PlayfieldComponent implements OnInit {
       this.lastTeam1Score = this.team1Score;
       this.team1Score += 1;
       this.lastInput = 1;
+
+      if (this.currentServe) {
+        this.mirrorteam1 = !this.mirrorteam1;
+      }
+      if ((this.team1Score + this.team2Score) % 2 === 0) {
+        if (!this.mirrorteam1) {
+          this.currentServingPlayer = 2;
+        } else {
+          this.currentServingPlayer = 1;
+        }
+      } else {
+        this.currentServingPlayer = 2;
+      }
       this.currentServe = true;
       this.updateScores();
     }
@@ -129,6 +159,18 @@ export class PlayfieldComponent implements OnInit {
       this.lastTeam2Score = this.team2Score;
       this.team2Score += 1;
       this.lastInput = 2;
+
+      if (!this.currentServe) {
+        this.mirrorteam2 = !this.mirrorteam2;
+      }
+      if ((this.team1Score + this.team2Score) % 2 === 0) {
+        if (!this.mirrorteam2) this.currentServingPlayer = 3;
+        else {
+          this.currentServingPlayer = 4;
+        }
+      } else {
+        this.currentServingPlayer = 3;
+      }
       this.currentServe = false;
       this.updateScores();
     }
