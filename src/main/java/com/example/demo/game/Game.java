@@ -19,9 +19,8 @@ public class Game {
             joinColumns = @JoinColumn(name = "game_id"),
             inverseJoinColumns = @JoinColumn(name = "team_id")
     )
-    private final Set<Team> teams = new HashSet<>();
+    private final List<Team> teams = new ArrayList<>();
 
-    //@JsonIgnore
     @OneToMany(mappedBy = "game")
     private Set<GameSet> gameSets = new HashSet<>();
 
@@ -46,12 +45,12 @@ public class Game {
         this.id = id;
     }
 
-    public Set<Team> getTeams() {
+    public List<Team> getTeams() {
         return teams;
     }
 
-    public void setTeams(Set<Team> teams) {
-        System.out.println("setTeams gets called");
+    public void setTeams(List<Team> teams) {
+        if(teams.size()!=2)throw new IllegalStateException("Game must have exactly 2 teams");
         for(Team team : teams) {
             this.teams.add(team);
             team.addGamePlayed(this);
@@ -65,7 +64,6 @@ public class Game {
     }
 
     public void setGameSets(Set<GameSet> gameSets) {
-        System.out.println("setGameSets gets called");
         for(GameSet gameSet : gameSets) {
             this.gameSets.add(gameSet);
             gameSet.setGame(this);
@@ -104,5 +102,18 @@ public class Game {
                 ", sets=" + gameSets +
                 ", winner=" + winner +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Game game = (Game) o;
+        return Objects.equals(id, game.id) && Objects.equals(teams, game.teams) && Objects.equals(gameSets, game.gameSets) && Objects.equals(winner, game.winner);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, teams, gameSets, winner);
     }
 }
