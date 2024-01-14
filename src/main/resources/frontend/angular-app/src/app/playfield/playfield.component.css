@@ -1,0 +1,9 @@
+.mirror-layout {
+    transform: scaleX(-1);
+  }
+
+.mirror-text {
+    transform: scaleX(-1);
+    direction: rtl; /* Optional: Adjust text direction for better readability */
+  }
+  
