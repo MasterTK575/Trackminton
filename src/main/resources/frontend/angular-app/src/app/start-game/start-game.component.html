@@ -1,163 +1,101 @@
-<div class="relative isolate px-6 pt-14 lg:px-8">
-  <div
-    class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
-    aria-hidden="true"
-  >
-    <div
-      class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#0077cc] to-[#4caf50] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-      style="
-        clip-path: polygon(
-          74.1% 44.1%,
-          100% 61.6%,
-          97.5% 26.9%,
-          85.5% 0.1%,
-          80.7% 2%,
-          72.5% 32.5%,
-          60.2% 62.4%,
-          52.4% 68.1%,
-          47.5% 58.3%,
-          45.2% 34.5%,
-          27.5% 76.7%,
-          0.1% 64.9%,
-          17.9% 100%,
-          27.6% 76.8%,
-          76.1% 97.7%,
-          74.1% 44.1%
-        );
-      "
-    ></div>
-  </div>
-  <div class="mx-auto max-w-2xl py-10 sm:py-20 lg:py-25">
-    <div class="hidden"></div>
-    <div class="text-center">
-      <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-        Spieler festlegen
-      </h1>
-    </div>
-  </div>
-  <form class="mx-auto max-w-2xl py-10 sm:py-20 lg:py-25 text-center">
-    <div class="flex flex-wrap -mx-3 mb-12">
-      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-        <label
-          class="block uppercase tracking-wide text-[#0077cc] text-xs font-bold mb-2"
-          for="team1Player1"
-        >
-          Team 1 Player 1
-        </label>
-        <div class="relative">
-          <input
-            class="appearance-none block w-full rounded py-3 px-4 mb-3"
-            id="team1Player1"
-            name="team1Player1"
-            type="text"
-            placeholder="Hans"
-            required
-            [(ngModel)]="team1Player1"
-          />
+<!DOCTYPE html>
+<html lang="en">
+  <body class="font-sans bg-white">
+    <div class="flex items-center justify-center h-screen">
+      <div class="w-full max-w-md p-6">
+        <div class="text-center mb-8">
+          <h1 class="text-4xl font-bold text-gray-900">Spieler festlegen</h1>
         </div>
-        <label
-          class="block uppercase tracking-wide text-[#0077cc] text-xs font-bold mb-2"
-          for="team1Player2"
-        >
-          Team 1 Player 2
-        </label>
-        <div class="relative">
-          <input
-            class="appearance-none block w-full rounded py-3 px-4 mb-3 focus:border-gray-500"
-            id="team1Player2"
-            name="team1Player2"
-            type="text"
-            placeholder="Jane"
-            required
-            [(ngModel)]="team1Player2"
-          />
-        </div>
-        <p class="text-red-500 text-xs italic">All fields are requiered.</p>
-      </div>
-      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-        <label
-          class="block uppercase tracking-wide text-[#4caf50] text-xs font-bold mb-2"
-          for="team2Player1"
-        >
-          Team 2 Player 1
-        </label>
-        <div class="relative">
-          <input
-            class="appearance-none block w-full rounded py-3 px-4 mb-3 focus:border-gray-500"
-            id="team2Player1"
-            name="team2Player1"
-            type="text"
-            placeholder="Doe"
-            required
-            [(ngModel)]="team2Player1"
-          />
-        </div>
-        <label
-          class="block uppercase tracking-wide text-[#4caf50] text-xs font-bold mb-2"
-          for="team2Player2"
-        >
-          Team 2 Player 2
-        </label>
-        <div class="relative">
-          <input
-            class="block w-full rounded py-3 px-4 mb-3"
-            id="team2Player2"
-            name="team2Player2"
-            type="text"
-            placeholder="Peter"
-            required
-            [(ngModel)]="team2Player2"
-          />
-        </div>
-        <p class="text-red-500 text-xs italic">All fields are requiered.</p>
+
+        <form class="text-center">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div>
+              <label
+                class="block text-sm font-bold mb-2 text-blue-500"
+                for="team1Player1"
+                >Team 1 Player 1</label
+              >
+              <input
+                class="appearance-none w-full bg-gray-100 rounded py-4 px-5 mb-4 text-lg"
+                id="team1Player1"
+                name="team1Player1"
+                type="text"
+                placeholder="Hans"
+                required
+                [(ngModel)]="team1Player1"
+              />
+            </div>
+            <div>
+              <label
+                class="block text-sm font-bold mb-2 text-blue-500"
+                for="team1Player2"
+                >Team 1 Player 2</label
+              >
+              <input
+                class="appearance-none w-full bg-gray-100 rounded py-4 px-5 mb-4 text-lg"
+                id="team1Player2"
+                name="team1Player2"
+                type="text"
+                placeholder="Jane"
+                required
+                [(ngModel)]="team1Player2"
+              />
+            </div>
+            <div>
+              <label
+                class="block text-sm font-bold mb-2 text-green-500"
+                for="team2Player1"
+                >Team 2 Player 1</label
+              >
+              <input
+                class="appearance-none w-full bg-gray-100 rounded py-4 px-5 mb-4 text-lg"
+                id="team2Player1"
+                name="team2Player1"
+                type="text"
+                placeholder="Doe"
+                required
+                [(ngModel)]="team2Player1"
+              />
+            </div>
+            <div>
+              <label
+                class="block text-sm font-bold mb-2 text-green-500"
+                for="team2Player2"
+                >Team 2 Player 2</label
+              >
+              <input
+                class="appearance-none w-full bg-gray-100 rounded py-4 px-5 mb-4 text-lg"
+                id="team2Player2"
+                name="team2Player2"
+                type="text"
+                placeholder="Peter"
+                required
+                [(ngModel)]="team2Player2"
+              />
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <p class="text-sm font-bold mb-2 text-gray-600">
+              Wähle aus, welches Team den Aufschlag beginnen soll:
+            </p>
+            <div class="flex justify-center">
+              <button
+                (click)="startGame('Team 1')"
+                class="bg-blue-500 text-white py-3 px-6 rounded-full mr-4 text-lg"
+              >
+                Team 1
+              </button>
+              <button
+                (click)="startGame('Team 2')"
+                class="bg-green-500 text-white py-3 px-6 rounded-full text-lg"
+              >
+                Team 2
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
-
-    <div class="mb-6">
-      <p class="text-xs font-bold mb-2">
-        Wähle aus, welches Team den Aufschlag beginnen soll:
-      </p>
-      <button
-        (click)="startGame('Team 1')"
-        class="bg-white text-[#0077cc] border-[#0077cc] px-6 py-3 rounded-md hover:bg-[#e6f2ff] focus:outline-none focus:border-gray-500"
-      >
-        Team 1
-      </button>
-      <button
-        (click)="startGame('Team 2')"
-        class="bg-white text-[#4caf50] border-[#4caf50] px-6 py-3 rounded-md hover:bg-[#e6ffe6] focus:outline-none focus:border-gray-500 ml-4"
-      >
-        Team 2
-      </button>
-    </div>
-  </form>
-
-  <div
-    class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
-    aria-hidden="true"
-  >
-    <div
-      class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#0077cc] to-[#4caf50] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
-      style="
-        clip-path: polygon(
-          74.1% 44.1%,
-          100% 61.6%,
-          97.5% 26.9%,
-          85.5% 0.1%,
-          80.7% 2%,
-          72.5% 32.5%,
-          60.2% 62.4%,
-          52.4% 68.1%,
-          47.5% 58.3%,
-          45.2% 34.5%,
-          27.5% 76.7%,
-          0.1% 64.9%,
-          17.9% 100%,
-          27.6% 76.8%,
-          76.1% 97.7%,
-          74.1% 44.1%
-        );
-      "
-    ></div>
-  </div>
-</div>
+  </body>
+</html>

@@ -51,11 +51,20 @@ export class PlayfieldComponent implements OnInit {
   isGameFinished = false;
   currentServe = true;
   lastServe = true;
+  setScores: { team1: number; team2: number }[] = [];
+  mirrorLayout = false;
 
   //TODO Seitenwechsel nach Satz, bei dritten Satz noch ein Wechsel nach 11 Punkten
 
   updateScores(): void {
     if (!this.isGameFinished) {
+      if (
+        this.team1Sets === 1 &&
+        this.team2Sets === 1 &&
+        (this.team1Score === 11 || this.team2Score === 11)
+      ) {
+        this.switchSides();
+      }
       if (this.team1Score >= 21 || this.team2Score >= 21) {
         if (Math.abs(this.team1Score - this.team2Score) >= 2) {
           if (this.team1Score > this.team2Score) {
@@ -63,12 +72,21 @@ export class PlayfieldComponent implements OnInit {
           } else {
             this.team2Sets += 1;
           }
-
+          this.switchSides();
+          // Save the set scores
+          this.setScores.push({
+            team1: this.team1Score,
+            team2: this.team2Score,
+          });
+          // Reset the scores
           this.resetScores();
 
           if (this.team1Sets === 2 || this.team2Sets === 2) {
             console.log('Navigating to finish screen');
             this.isGameFinished = true;
+            // Update the set scores using the service
+            this.dataSharingService.updateSetScores(this.setScores);
+            // Redirect to finish screen component
             this.router.navigate(['/finish-screen'], {
               queryParams: {
                 winner: this.team1Sets === 2 ? 'Team 1' : 'Team 2',
@@ -83,6 +101,10 @@ export class PlayfieldComponent implements OnInit {
         }
       }
     }
+  }
+
+  switchSides(): void {
+    this.mirrorLayout = !this.mirrorLayout;
   }
 
   resetScores(): void {

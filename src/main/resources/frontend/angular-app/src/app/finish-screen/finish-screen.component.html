@@ -18,5 +18,19 @@
         <p class="text-2xl font-bold text-green-500">{{ team2Sets }}</p>
       </div>
     </div>
+    <div class="mt-4">
+      <p class="text-lg font-semibold mb-2">Set Scores:</p>
+      <div *ngFor="let setScore of setScores; let i = index">
+        <p class="text-gray-600 text-sm">Set {{ i + 1 }}</p>
+        <div class="flex justify-between">
+          <div class="flex flex-col items-center mr-6">
+            <p class="text-blue-500">{{ setScore.team1 }}</p>
+          </div>
+          <div class="flex flex-col items-center">
+            <p class="text-green-500">{{ setScore.team2 }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
