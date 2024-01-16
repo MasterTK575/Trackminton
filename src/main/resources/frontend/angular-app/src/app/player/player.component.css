@@ -1,0 +1,23 @@
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Adjust as needed for vertical centering */
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .player-item {
+    text-align: center;
+    margin: 20px;
+  }
+  
+  .player-item h2 {
+    font-size: 24px;
+    font-family: 'Arial', sans-serif; /* Choose a nice font-family */
+    margin-bottom: 10px;
+  }
+  
