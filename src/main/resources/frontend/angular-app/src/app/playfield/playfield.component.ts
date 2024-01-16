@@ -35,6 +35,7 @@ export class PlayfieldComponent implements OnInit {
         this.currentServe = this.startingTeam === 'Team 1' ? true : false;
         this.lastServe = this.currentServe;
         this.currentServingPlayer = this.startingTeam === 'Team 1' ? 2 : 3;
+        this.lastServingPlayer = this.currentServingPlayer;
       }
     });
   }
@@ -55,9 +56,12 @@ export class PlayfieldComponent implements OnInit {
   setScores: { team1: number; team2: number }[] = [];
   mirrorLayout = false;
   mirrorteam1 = false;
+  lastMirrorteam1 = false;
+  lastMirrorteam2 = false;
   mirrorteam2 = false;
   thirdSetChange = false;
   currentServingPlayer = 2;
+  lastServingPlayer = 2;
 
   updateScores(): void {
     if (!this.isGameFinished) {
@@ -127,6 +131,8 @@ export class PlayfieldComponent implements OnInit {
   resetScores(): void {
     this.team1Score = 0;
     this.team2Score = 0;
+    this.mirrorteam1 = false;
+    this.mirrorteam2 = false;
   }
 
   team1ButtonClick(): void {
@@ -135,18 +141,44 @@ export class PlayfieldComponent implements OnInit {
       this.lastTeam1Score = this.team1Score;
       this.team1Score += 1;
       this.lastInput = 1;
+      this.lastServingPlayer = this.currentServingPlayer;
+      this.lastMirrorteam1 = this.mirrorteam1;
 
-      if (this.currentServe) {
-        this.mirrorteam1 = !this.mirrorteam1;
-      }
       if ((this.team1Score + this.team2Score) % 2 === 0) {
-        if (!this.mirrorteam1) {
+        //spieler nicht getauscht und ball zurückgewonnen
+        if (this.mirrorteam1 == false && this.currentServe == false) {
           this.currentServingPlayer = 2;
-        } else {
+        }
+        //spieler getauscht und ball zurückgewonnen
+        else if (this.mirrorteam1 == true && this.currentServe == false) {
           this.currentServingPlayer = 1;
         }
-      } else {
-        this.currentServingPlayer = 2;
+        //spieler nicht getauscht und weiterhin ballbesitz
+        else if (this.mirrorteam1 == false && this.currentServe == true) {
+          this.mirrorteam1 = !this.mirrorteam1;
+        }
+        //spieler sind getauscht und weiterhin ballbesitz
+        else if (this.mirrorteam1 == true && this.currentServe == true) {
+          this.mirrorteam1 = !this.mirrorteam1;
+        }
+      }
+      if ((this.team1Score + this.team2Score) % 2 != 0) {
+        //spieler nicht getauscht und ball zurückgewonnen
+        if (this.mirrorteam1 == false && this.currentServe == false) {
+          this.currentServingPlayer = 1;
+        }
+        //spieler getauscht und ball zurückgewonnen
+        else if (this.mirrorteam1 == true && this.currentServe == false) {
+          this.currentServingPlayer = 2;
+        }
+        //spieler nicht getauscht und weiterhin ballbesitz
+        else if (this.mirrorteam1 == false && this.currentServe == true) {
+          this.mirrorteam1 = !this.mirrorteam1;
+        }
+        //spieler sind getauscht und weiterhin ballbesitz
+        else if (this.mirrorteam1 == true && this.currentServe == true) {
+          this.mirrorteam1 = !this.mirrorteam1;
+        }
       }
       this.currentServe = true;
       this.updateScores();
@@ -159,17 +191,46 @@ export class PlayfieldComponent implements OnInit {
       this.lastTeam2Score = this.team2Score;
       this.team2Score += 1;
       this.lastInput = 2;
+      this.lastServingPlayer = this.currentServingPlayer;
+      this.lastMirrorteam2 = this.mirrorteam2;
 
-      if (!this.currentServe) {
-        this.mirrorteam2 = !this.mirrorteam2;
-      }
       if ((this.team1Score + this.team2Score) % 2 === 0) {
-        if (!this.mirrorteam2) this.currentServingPlayer = 3;
-        else {
+        //spieler nicht getauscht und ball zurückgewonnen
+        if (this.mirrorteam2 == false && this.currentServe == true) {
+          this.currentServingPlayer = 3;
+        }
+        //spieler getauscht und ball zurückgewonnen
+        else if (this.mirrorteam2 == true && this.currentServe == true) {
           this.currentServingPlayer = 4;
         }
-      } else {
-        this.currentServingPlayer = 3;
+        //spieler nicht getauscht und weiterhin ballbesitz
+        else if (this.mirrorteam2 == false && this.currentServe == false) {
+          this.mirrorteam2 = !this.mirrorteam2;
+          this.currentServingPlayer = 4;
+        }
+        //spieler sind getauscht und weiterhin ballbesitz
+        else if (this.mirrorteam2 == true && this.currentServe == false) {
+          this.mirrorteam2 = !this.mirrorteam2;
+          this.currentServingPlayer = 3;
+        }
+      }
+      if ((this.team1Score + this.team2Score) % 2 != 0) {
+        //spieler nicht getauscht und ball zurückgewonnen
+        if (this.mirrorteam2 == false && this.currentServe == true) {
+          this.currentServingPlayer = 4;
+        }
+        //spieler getauscht und ball zurückgewonnen
+        else if (this.mirrorteam2 == true && this.currentServe == true) {
+          this.currentServingPlayer = 3;
+        }
+        //spieler nicht getauscht und weiterhin ballbesitz
+        else if (this.mirrorteam2 == false && this.currentServe == false) {
+          this.mirrorteam2 = !this.mirrorteam2;
+        }
+        //spieler sind getauscht und weiterhin ballbesitz
+        else if (this.mirrorteam2 == true && this.currentServe == false) {
+          this.mirrorteam2 = !this.mirrorteam2;
+        }
       }
       this.currentServe = false;
       this.updateScores();
@@ -184,7 +245,10 @@ export class PlayfieldComponent implements OnInit {
     if (this.lastInput === 2) {
       this.team2Score = this.lastTeam2Score;
     }
+    this.currentServingPlayer = this.lastServingPlayer;
     this.currentServe = this.lastServe;
+    this.mirrorteam1 = this.lastMirrorteam1;
+    this.mirrorteam2 = this.lastMirrorteam2;
   }
 
   showBreakPopup(): void {
