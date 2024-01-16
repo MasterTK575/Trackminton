@@ -20,4 +20,12 @@
     font-family: 'Arial', sans-serif; /* Choose a nice font-family */
     margin-bottom: 10px;
   }
+
+  .center-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* 100% of the viewport height */
+  }
+  
   
