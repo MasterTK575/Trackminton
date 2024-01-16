@@ -1,6 +1,7 @@
 import { Component, OnInit, ɵisStandalone } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataSharingService } from '../services/dataSharingService';
+import { GameService } from '../gameService';
 
 @Component({
   selector: 'app-playfield',
@@ -11,7 +12,8 @@ export class PlayfieldComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private dataSharingService: DataSharingService
+    private dataSharingService: DataSharingService,
+    private gameService: GameService
   ) {}
 
   team1Player1: string = '';
@@ -62,6 +64,8 @@ export class PlayfieldComponent implements OnInit {
   thirdSetChange = false;
   currentServingPlayer = 2;
   lastServingPlayer = 2;
+  team1Name = this.team1Player1.charAt(0) + this.team1Player2.charAt(0);
+  team2Name = this.team2Player1.charAt(0) + this.team2Player2.charAt(0);
 
   updateScores(): void {
     if (!this.isGameFinished) {
@@ -114,6 +118,46 @@ export class PlayfieldComponent implements OnInit {
           }
         }
       }
+    }
+    if (this.isGameFinished) {
+      console.log('Sending game results to the backend');
+
+      // Erstellt ein Game-Objekt mit den relevanten Daten
+      const gameData = {
+        teams: [
+          {
+            const: this.team1Name,
+            players: [this.team1Player1, this.team1Player2],
+          },
+          {
+            const: this.team2Name,
+            players: [this.team2Player1, this.team2Player2],
+          },
+        ],
+        gameSets: this.setScores,
+        winner:
+          this.team1Sets === 2
+            ? {
+                name: this.team1Name,
+                players: [this.team1Player1, this.team1Player2],
+              }
+            : {
+                name: this.team2Name,
+                players: [this.team2Player1, this.team2Player2],
+              },
+      };
+
+      this.gameService.submitGameResult(gameData).subscribe(
+        (response) => {
+          console.log(
+            'Game results successfully sent to the backend:',
+            response
+          );
+        },
+        (error) => {
+          console.error('Error sending game results to the backend:', error);
+        }
+      );
     }
   }
 

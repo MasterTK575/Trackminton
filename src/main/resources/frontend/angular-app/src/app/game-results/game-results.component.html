@@ -1,0 +1,24 @@
+<div class="center">
+  <ul>
+    <li *ngFor="let game of games" class="game-results">
+      <h2>
+        {{ game.id }}
+      </h2>
+      <ul *ngIf="game.teams && game.teams.length">
+        <li *ngFor="let team of game.teams">
+          {{ team.name }}
+          <ng-container *ngIf="team.players && team.players.length">
+            ({{ team.players[0]?.userName }} & ...)
+            <!-- Add other properties as needed -->
+          </ng-container>
+          <ng-container *ngIf="!team.players || team.players.length === 0">
+            (No players available)
+          </ng-container>
+        </li>
+      </ul>
+      <div *ngIf="!game.teams || game.teams.length === 0">
+        No teams available for this game.
+      </div>
+    </li>
+  </ul>
+</div>
