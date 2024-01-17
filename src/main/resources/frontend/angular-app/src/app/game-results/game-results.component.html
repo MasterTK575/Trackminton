@@ -1,24 +1,51 @@
-<div class="center">
-  <ul>
-    <li *ngFor="let game of games" class="game-results">
-      <h2>
-        {{ game.id }}
-      </h2>
-      <ul *ngIf="game.teams && game.teams.length">
-        <li *ngFor="let team of game.teams">
-          {{ team.name }}
-          <ng-container *ngIf="team.players && team.players.length">
-            ({{ team.players[0]?.userName }} & ...)
-            <!-- Add other properties as needed -->
-          </ng-container>
-          <ng-container *ngIf="!team.players || team.players.length === 0">
-            (No players available)
-          </ng-container>
-        </li>
-      </ul>
-      <div *ngIf="!game.teams || game.teams.length === 0">
-        No teams available for this game.
-      </div>
-    </li>
-  </ul>
+<div class="center-container" style>
+  <div class="center" style="max-height: 500px; overflow-y: auto">
+    <ul class="game-list">
+      <li *ngFor="let game of games" class="game-results">
+        <div *ngIf="game.teams && game.teams.length > 0">
+          <ul class="team-list">
+            <li *ngFor="let team of game.teams" class="team-item">
+              <span class="team-name">Team: {{ team.name }}</span>
+              <ng-container
+                *ngIf="team.teamMembers && team.teamMembers.length > 0"
+              >
+                <div class="team-members">
+                  Players:
+                  <ul>
+                    <li *ngFor="let player of team.teamMembers">
+                      {{ player.firstName }} {{ player.lastName }} ({{
+                        player.userName
+                      }})
+                    </li>
+                  </ul>
+                </div>
+              </ng-container>
+              <ng-container
+                *ngIf="!team.teamMembers || team.teamMembers.length === 0"
+              >
+                <div class="no-players">
+                  No players available for this team.
+                </div>
+              </ng-container>
+            </li>
+          </ul>
+        </div>
+        <div *ngIf="!game.teams || game.teams.length === 0" class="no-teams">
+          No teams available for this game.
+        </div>
+        <div>
+          Winner: {{ game.winner ? game.winner.name : "No winner yet" }}
+        </div>
+        <div>
+          Game Sets:
+          <ul>
+            <li *ngFor="let gameSet of game.gameSets">
+              Score Team 1: {{ gameSet.scoreTeam1 }}, Score Team 2:
+              {{ gameSet.scoreTeam2 }}
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>

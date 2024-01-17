@@ -55,7 +55,7 @@ export class PlayfieldComponent implements OnInit {
   isGameFinished = false;
   currentServe = true;
   lastServe = true;
-  setScores: { team1: number; team2: number }[] = [];
+  setScores: { scoreTeam1: number; scoreTeam2: number }[] = [];
   mirrorLayout = false;
   mirrorteam1 = false;
   lastMirrorteam1 = false;
@@ -64,8 +64,6 @@ export class PlayfieldComponent implements OnInit {
   thirdSetChange = false;
   currentServingPlayer = 2;
   lastServingPlayer = 2;
-  team1Name = this.team1Player1.charAt(0) + this.team1Player2.charAt(0);
-  team2Name = this.team2Player1.charAt(0) + this.team2Player2.charAt(0);
 
   updateScores(): void {
     if (!this.isGameFinished) {
@@ -93,8 +91,8 @@ export class PlayfieldComponent implements OnInit {
           this.switchSides();
           // Save the set scores
           this.setScores.push({
-            team1: this.team1Score,
-            team2: this.team2Score,
+            scoreTeam1: this.team1Score,
+            scoreTeam2: this.team2Score,
           });
           // Reset the scores
           this.resetScores();
@@ -104,7 +102,10 @@ export class PlayfieldComponent implements OnInit {
             this.isGameFinished = true;
             // Update the set scores using the service
             this.dataSharingService.updateSetScores(this.setScores);
-            // Redirect to finish screen component
+
+            //generate game object and send to backend
+            this.sendGameToBackend();
+
             this.router.navigate(['/finish-screen'], {
               queryParams: {
                 winner: this.team1Sets === 2 ? 'Team 1' : 'Team 2',
@@ -119,46 +120,105 @@ export class PlayfieldComponent implements OnInit {
         }
       }
     }
-    if (this.isGameFinished) {
-      console.log('Sending game results to the backend');
+  }
 
-      // Erstellt ein Game-Objekt mit den relevanten Daten
-      const gameData = {
-        teams: [
-          {
-            const: this.team1Name,
-            players: [this.team1Player1, this.team1Player2],
-          },
-          {
-            const: this.team2Name,
-            players: [this.team2Player1, this.team2Player2],
-          },
-        ],
-        gameSets: this.setScores,
-        winner:
-          this.team1Sets === 2
-            ? {
-                name: this.team1Name,
-                players: [this.team1Player1, this.team1Player2],
-              }
-            : {
-                name: this.team2Name,
-                players: [this.team2Player1, this.team2Player2],
-              },
-      };
+  private sendGameToBackend() {
+    console.log('Sending game results to the backend');
 
-      this.gameService.submitGameResult(gameData).subscribe(
-        (response) => {
-          console.log(
-            'Game results successfully sent to the backend:',
-            response
-          );
+    // Erstellt ein Game-Objekt mit den relevanten Daten
+    const gameData = {
+      teams: [
+        {
+          name:
+            this.generateUsername(this.team1Player1) +
+            ' & ' +
+            this.generateUsername(this.team1Player2),
+          teamMembers: [
+            {
+              firstName: this.generateFirstname(this.team1Player1),
+              lastName: this.generateLastname(this.team1Player1),
+              userName: this.generateUsername(this.team1Player1),
+            },
+            {
+              firstName: this.generateFirstname(this.team1Player2),
+              lastName: this.generateLastname(this.team1Player2),
+              userName: this.generateUsername(this.team1Player2),
+            },
+          ],
         },
-        (error) => {
-          console.error('Error sending game results to the backend:', error);
-        }
-      );
-    }
+        {
+          name:
+            this.generateUsername(this.team2Player1) +
+            ' & ' +
+            this.generateUsername(this.team2Player2),
+          teamMembers: [
+            {
+              firstName: this.generateFirstname(this.team2Player1),
+              lastName: this.generateLastname(this.team2Player1),
+              userName: this.generateUsername(this.team2Player1),
+            },
+            {
+              firstName: this.generateFirstname(this.team2Player2),
+              lastName: this.generateLastname(this.team2Player2),
+              userName: this.generateUsername(this.team2Player2),
+            },
+          ],
+        },
+      ],
+      gameSets: this.setScores.map((set) => {
+        return {
+          scoreTeam1: set.scoreTeam1,
+          scoreTeam2: set.scoreTeam2,
+        };
+      }),
+      winner:
+        this.team1Sets === 2
+          ? {
+              name:
+                this.generateUsername(this.team1Player1) +
+                ' & ' +
+                this.generateUsername(this.team1Player2),
+              teamMembers: [
+                {
+                  firstName: this.generateFirstname(this.team1Player1),
+                  lastName: this.generateLastname(this.team1Player1),
+                  userName: this.generateUsername(this.team1Player1),
+                },
+                {
+                  firstName: this.generateFirstname(this.team1Player2),
+                  lastName: this.generateLastname(this.team1Player2),
+                  userName: this.generateUsername(this.team1Player2),
+                },
+              ],
+            }
+          : {
+              name:
+                this.generateUsername(this.team2Player1) +
+                ' & ' +
+                this.generateUsername(this.team2Player2),
+              teamMembers: [
+                {
+                  firstName: this.generateFirstname(this.team2Player1),
+                  lastName: this.generateLastname(this.team2Player1),
+                  userName: this.generateUsername(this.team2Player1),
+                },
+                {
+                  firstName: this.generateFirstname(this.team2Player2),
+                  lastName: this.generateLastname(this.team2Player2),
+                  userName: this.generateUsername(this.team2Player2),
+                },
+              ],
+            },
+    };
+
+    this.gameService.submitGameResult(gameData).subscribe(
+      (response) => {
+        console.log('Game results successfully sent to the backend:', response);
+      },
+      (error) => {
+        console.error('Error sending game results to the backend:', error);
+      }
+    );
   }
 
   switchSides(): void {
@@ -326,5 +386,30 @@ export class PlayfieldComponent implements OnInit {
     const minutes = Math.floor(timeInSeconds / 60);
     const seconds = timeInSeconds % 60;
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  }
+
+  generateUsername(name: string): string {
+    const nameParts = name.split(' ');
+
+    if (nameParts.length === 1) {
+      return nameParts[0][0].toUpperCase();
+    } else {
+      return nameParts[0][0].toUpperCase() + nameParts[1][0].toUpperCase();
+    }
+  }
+
+  generateFirstname(name: string): string {
+    const nameParts = name.split(' ');
+    return nameParts[0];
+  }
+
+  generateLastname(name: string): string {
+    const nameParts = name.split(' ');
+
+    if (nameParts.length === 1) {
+      return '';
+    } else {
+      return nameParts[1];
+    }
   }
 }

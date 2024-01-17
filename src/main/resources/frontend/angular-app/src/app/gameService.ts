@@ -11,7 +11,7 @@ export class GameService {
 
   constructor(private http: HttpClient) {}
 
-  submitGameResult(gameResult: any): Observable<any> {
+  submitGameResult(gameResult: Game): Observable<any> {
     const apiUrl = `${this.apiServerUrl}/api/games`;
     return this.http.post(apiUrl, gameResult);
   }

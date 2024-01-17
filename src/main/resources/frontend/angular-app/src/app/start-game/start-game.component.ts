@@ -74,7 +74,7 @@ export class StartGameComponent implements OnInit {
       lastName = '';
     }
 
-    userName = `${firstName.charAt(0)}${lastName.charAt(0)}`;
+    userName = firstName.charAt(0) + lastName.charAt(0);
 
     return { firstName, lastName, userName };
   }
