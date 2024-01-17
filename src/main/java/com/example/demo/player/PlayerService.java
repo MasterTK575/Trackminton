@@ -24,21 +24,22 @@ public class PlayerService {
     public Player getPlayer(Long playerId) {
         return playerRepository.findById(playerId)
                 .orElseThrow(() -> new PlayerNotFoundException(
-                        String.format("Player with id %d doesn't exist.",playerId)));
+                        String.format("Player with id %d doesn't exist.", playerId)));
     }
 
     public Player addNewPlayer(Player player) {
         Optional<Player> playerByUserName = playerRepository.findPlayerByUserName(player.getUserName());
-        if(playerByUserName.isPresent()) { // to make sure that usernames are unique
-            throw new IllegalStateException("username already taken");
-        }
+        // if(playerByUserName.isPresent()) { // to make sure that usernames are unique
+        // throw new IllegalStateException("username already taken");
+        // }
 
         return playerRepository.save(player);
     }
 
     @Transactional
     public Player deletePlayer(Long playerId) {
-        Player playerToDelete = playerRepository.findById(playerId).orElseThrow(() -> new PlayerNotFoundException(String.format("Player with id %d doesn't exist.",playerId)));
+        Player playerToDelete = playerRepository.findById(playerId).orElseThrow(
+                () -> new PlayerNotFoundException(String.format("Player with id %d doesn't exist.", playerId)));
         playerRepository.delete(playerToDelete);
         return playerToDelete;
     }
@@ -47,31 +48,30 @@ public class PlayerService {
     public Player updatePlayer(Long playerId, String firstName, String lastName, String userName) {
         Player player = playerRepository.findById(playerId)
                 .orElseThrow(() -> new PlayerNotFoundException(
-                        String.format("Player with id %d doesn't exist.",playerId)));
+                        String.format("Player with id %d doesn't exist.", playerId)));
 
-        //update first name
-        if(firstName!= null && !firstName.isEmpty() &&
-            !Objects.equals(player.getFirstName(),firstName)) {
+        // update first name
+        if (firstName != null && !firstName.isEmpty() &&
+                !Objects.equals(player.getFirstName(), firstName)) {
             player.setFirstName(firstName);
         }
-        //update last name
-        if(lastName!= null && !lastName.isEmpty() &&
-                !Objects.equals(player.getLastName(),lastName)) {
+        // update last name
+        if (lastName != null && !lastName.isEmpty() &&
+                !Objects.equals(player.getLastName(), lastName)) {
             player.setLastName(lastName);
         }
 
-        //update username
-        if(userName!= null && !userName.isEmpty() &&
-                !Objects.equals(player.getUserName(),userName)) {
+        // update username
+        if (userName != null && !userName.isEmpty() &&
+                !Objects.equals(player.getUserName(), userName)) {
 
             Optional<Player> playerByUserName = playerRepository.findPlayerByUserName(userName);
-            if(playerByUserName.isPresent()) { // to make sure that usernames are unique
+            if (playerByUserName.isPresent()) { // to make sure that usernames are unique
                 throw new IllegalStateException("username already taken");
             }
             player.setUserName(userName);
         }
         return player;
     }
-
 
 }

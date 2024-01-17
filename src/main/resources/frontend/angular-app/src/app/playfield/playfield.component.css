@@ -6,4 +6,14 @@
     transform: scaleX(-1);
     direction: rtl; /* Optional: Adjust text direction for better readability */
   }
+
+  .mirror-text2 {
+    transform: scaleY(-1);
+    direction: rtl; /* Optional: Adjust text direction for better readability */
+  }
+
+.mirror-player{
+    transform: scaleY(-1);
+  }
+
   

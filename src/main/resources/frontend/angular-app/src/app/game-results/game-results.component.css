@@ -1,0 +1,54 @@
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Adjust as needed for vertical centering */
+  }
+  
+  .center-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* 100% of the viewport height */
+  }
+  
+  .game-list {
+    display: flex;
+    flex-wrap: wrap; /* Allow game results to wrap to the next line */
+    justify-content: center;
+    gap: 20px; /* Adjust the gap between game results */
+  }
+  
+  .game-results {
+    width: 400px; /* Set the width of each game result */
+    border: 1px solid #ccc; /* Add a border for visual separation */
+    padding: 10px;
+    box-sizing: border-box; /* Include padding in the total width */
+    margin-bottom: 20px; /* Add some margin between game results */
+  }
+  
+  .team-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .team-item {
+    margin-bottom: 10px;
+  }
+  
+  .team-name {
+    font-weight: bold;
+  }
+  
+  .team-members {
+    margin-top: 5px;
+  }
+  
+  .no-players {
+    color: #888;
+  }
+  
+  .no-teams {
+    color: #888;
+  }
+  

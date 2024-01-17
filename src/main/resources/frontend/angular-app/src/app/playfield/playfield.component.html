@@ -100,14 +100,18 @@
       <div
         class="absolute left-1/4 flex flex-col items-center"
         [class.mirror-text]="mirrorLayout"
+        [class.mirror-player]="mirrorteam1"
       >
         <div class="relative mb-4" style="margin-top: 6rem">
           <div
             class="w-24 h-24 bg-blue-500 rounded-full border-4 transform rotate-45 absolute left-0 bottom-0"
-            [ngStyle]="{ 'border-color': currentServe ? 'red' : 'transparent' }"
+            [ngStyle]="{
+              'border-color': currentServingPlayer === 1 ? 'red' : 'transparent'
+            }"
           >
             <span
               class="text-s font-bold text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+              [class.mirror-text2]="mirrorteam1"
             >
               {{ team1Player1 }}
             </span>
@@ -116,10 +120,13 @@
         <div class="relative" style="margin-top: 6rem">
           <div
             class="w-24 h-24 bg-blue-500 rounded-full border-4 transform rotate-45 absolute right-0 top-0"
-            [ngStyle]="{ 'border-color': currentServe ? 'red' : 'transparent' }"
+            [ngStyle]="{
+              'border-color': currentServingPlayer === 2 ? 'red' : 'transparent'
+            }"
           >
             <span
               class="text-s font-bold text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+              [class.mirror-player]="mirrorteam1"
             >
               {{ team1Player2 }}
             </span>
@@ -131,16 +138,18 @@
       <div
         class="absolute right-1/4 flex flex-col items-center"
         [class.mirror-text]="mirrorLayout"
+        [class.mirror-player]="mirrorteam2"
       >
         <div class="relative mb-4" style="margin-top: 6rem">
           <div
             class="w-24 h-24 bg-green-500 rounded-full border-4 transform rotate-45 absolute right-0 bottom-0"
             [ngStyle]="{
-              'border-color': !currentServe ? 'red' : 'transparent'
+              'border-color': currentServingPlayer === 3 ? 'red' : 'transparent'
             }"
           >
             <span
               class="text-s font-bold text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+              [class.mirror-text2]="mirrorteam2"
             >
               {{ team2Player1 }}
             </span>
@@ -150,11 +159,12 @@
           <div
             class="w-24 h-24 bg-green-500 rounded-full border-4 transform rotate-45 absolute left-0 top-0"
             [ngStyle]="{
-              'border-color': !currentServe ? 'red' : 'transparent'
+              'border-color': currentServingPlayer === 4 ? 'red' : 'transparent'
             }"
           >
             <span
               class="text-s font-bold text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+              [class.mirror-player]="mirrorteam2"
             >
               {{ team2Player2 }}
             </span>
