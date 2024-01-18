@@ -1,9 +1,13 @@
 package com.example.demo.gameset;
 
 import com.example.demo.game.Game;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
+@Table
 public class GameSet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,9 +16,28 @@ public class GameSet {
     private int scoreTeam1;
     private int scoreTeam2;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "game_id", referencedColumnName = "id")
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    @JoinColumn(name = "game_id",
+            referencedColumnName = "id")
     private Game game;
+
+    public GameSet() {
+    }
+
+    public GameSet(Long id, int scoreTeam1, int scoreTeam2, Game game) {
+        this.id = id;
+        this.scoreTeam1 = scoreTeam1;
+        this.scoreTeam2 = scoreTeam2;
+        this.game = game;
+    }
+
+    public GameSet(int scoreTeam1, int scoreTeam2, Game game) {
+        this.scoreTeam1 = scoreTeam1;
+        this.scoreTeam2 = scoreTeam2;
+        this.game = game;
+    }
 
     public Long getId() {
         return id;
@@ -46,5 +69,27 @@ public class GameSet {
 
     public void setGame(Game game) {
         this.game = game;
+    }
+
+    @Override
+    public String toString() {
+        return "GameSet{" +
+                "id=" + id +
+                ", scoreTeam1=" + scoreTeam1 +
+                ", scoreTeam2=" + scoreTeam2 +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GameSet gameSet = (GameSet) o;
+        return scoreTeam1 == gameSet.scoreTeam1 && scoreTeam2 == gameSet.scoreTeam2 && Objects.equals(id, gameSet.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, scoreTeam1, scoreTeam2);
     }
 }

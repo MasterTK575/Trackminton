@@ -1,0 +1,11 @@
+<div class="center-container">
+  <div class="center" style="max-height: 300px; overflow-y: auto">
+    <ul>
+      <li *ngFor="let player of players" class="player-item">
+        <h2>
+          {{ player.firstName }} {{ player.lastName }} {{ player.userName }}
+        </h2>
+      </li>
+    </ul>
+  </div>
+</div>

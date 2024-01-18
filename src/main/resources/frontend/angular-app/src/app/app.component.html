@@ -1,30 +1,32 @@
-<div class="center">
-  <div *ngFor="let player of players" class="card">
-    <div class="additional">
-      <div class="user-card">
-        <div class="level center">Level: Pro</div>
-        <div class="points center">393 Wins</div>
-        <img
-          src="https://bootdey.com/img/Content/avatar/avatar1.png"
-          class="img-fluid d-block mx-auto rounded-circle img-thumbnail mb-4"
-        />
+<div class="bg-white">
+  <header class="absolute inset-x-0 top-0 z-50">
+    <nav
+      class="flex items-center justify-between p-6 lg:px-8"
+      aria-label="Global"
+    >
+      <div class="flex lg:flex-1"></div>
+      <div class="hidden lg:flex lg:gap-x-12">
+        <a
+          routerLink="/home"
+          class="text-sm font-semibold leading-6 text-gray-900"
+          >Home</a
+        >
+        <a
+          routerLink="/game-results"
+          class="text-sm font-semibold leading-6 text-gray-900"
+          >Ergebnisse</a
+        >
+        <a
+          routerLink="/player"
+          class="text-sm font-semibold leading-6 text-gray-900"
+          >Spieler</a
+        >
+        <a href="#" class="text-sm font-semibold leading-6 text-gray-900"
+          >Informationen</a
+        >
       </div>
-      <div class="more-info">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce a
-          volutpat mauris, at molestie lacus. Nam vestibulum sodales odio ut
-          pulvinar.
-        </p>
-      </div>
-    </div>
-    <div class="general">
-      <h1>{{ player.firstName }} {{ player.lastName }}</h1>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce a
-        volutpat mauris, at molestie lacus. Nam vestibulum sodales odio ut
-        pulvinar.
-      </p>
-      <span class="more">Mouse over the card for more info</span>
-    </div>
-  </div>
+      <div class="hidden lg:flex lg:flex-1 lg:justify-end"></div>
+    </nav>
+  </header>
 </div>
+<router-outlet></router-outlet>
