@@ -35,9 +35,9 @@ This project is a web application designed to assist a sports club in managing a
 ### Frontend (Angular) Server:
 
 4. **Install Angular CLI**: If you haven't installed Angular CLI globally on your computer yet, you'll need to do so. Open a terminal or command prompt and run the following command:
-         ```bash
-         npm install -g @angular/cli
-         ```
+      ```bash
+      npm install -g @angular/cli
+      ```
 5. **Install Frontend Dependencies**:
    - Navigate to the directory where you've pulled the Angular project (where the `package.json` file is located).
    - Run the following command to install the project dependencies:
